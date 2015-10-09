@@ -1,0 +1,133 @@
+\input{pre}
+\tikzset{rrail/.style={rground,yscale=-1}}
+\begin{document}
+\input{frontpage}
+\newpage
+\section{Pre-Lab}
+\subsection{Write the most general expression for \(I_{ds}\) above threshold in terms of \(V_g,V_s,V_d\)}
+Assuming \(\kappa=1\) and that \(V_{Tn} > 0\) and \(V_{Tp} < 0\), we have for the nMOS native transistor:
+\begin{equation*}
+    I_{ds} = \frac{\beta}{2}\left(\left(V_g-V_{T0}-V_s\right)^2-\left(V_g-V_{T0} - V_d\right)^2\right)
+\end{equation*}
+And for the well type pMOS transistor:
+\begin{equation*}
+    I_{ds} = \frac{\beta}{2}\left(\left(-V_g+V_{T0}+V_s\right)^2-\left(-V_g+V_{T0} + V_d\right)^2\right)
+\end{equation*}
+Where the signs are flipped because the bulk of the pMOS is tied to \(V_dd\) and not ground.
+
+\subsection{Sketch graphs of the drain current vs. the drain Voltage \(V_d\)}
+\begin{figure}
+    \center
+    \includegraphics{prelab2.eps}
+    \caption{Qualitative graphs of \(I_{ds}\) vs. \(V_{ds}\) in the above threshold region for varying \(V_g\).
+    The ohmic and saturation regions are marked.}
+    \label{fig:q2}
+\end{figure}
+The graphs of the drain currents for varying \(V_{ds}\) and \(V_g\) can be seen in Fig.~\ref{fig:q2}. These
+differ from the equivalent graphs in subthreshold mode in that the saturation value of \(V_{ds}\) is not 
+constant, but instead depends on the gate overdrive.
+
+\subsection{Derive an expression for the current in the ohmic region, in terms of \(V_g\) and \(V_{ds}\)}
+The general equation:
+\begin{equation*}
+    I_{ds} = \frac{\beta}{2}\left(\left(V_g-V_{T0}-V_s\right)^2-\left(V_g-V_{T0} - V_d\right)^2\right)
+\end{equation*}
+Can be reduced to 
+\begin{equation*}
+    I_{ds} = \beta\left(\left(V_g-V_{T0}\right)\left(V_d-V_s\right) - \frac{1}{2}\left(V_d-V_s\right)^2\right)
+\end{equation*}
+Replacing \(V_d-V_s = V_{ds}\) and assuming that \(V_{ds}\) is very small so the second term can be ignored we
+have
+\begin{equation*}
+    I_{ds} = \beta V_{ds}\left(V_g-V_{T0}\right) 
+\end{equation*}
+A sketch of the current in the ohmic region can be seen in Fig.~\ref{fig:q3}. The current is proportional to
+\(\beta\) and \(V_{ds}\).
+\begin{figure}
+    \center
+    \includegraphics{prelab3.eps}
+    \caption{\(I_{ds}\) versus \(V_g\) in the ohmic region.}
+    \label{fig:q3}
+\end{figure}
+
+\subsection{State the drain voltage condition for above-threshold saturation and derive an expression for the saturation current, \(I_{dsat}\).}
+
+The condition for saturation in the above threshold regime is \(V_{ds} \geq V_g - V_{T0}\).
+When we are in saturation, there will be a pinchoff point under the channel with no electrons, therefore the
+general equation reduces to 
+\begin{equation*}
+    I_{dsat} = \frac{\beta}{2}\left(V_g-V_{T0}\right)^2
+\end{equation*}
+Assuming \(\kappa = 1\). If the y-axis label in graph in Fig.~\ref{fig:q3} is replaced with \(\sqrt{I_{dsat}}\) and the slope replaced with a constant 
+1, it shows the saturation current as a function of \(V_g\).
+
+\subsection{Calculate \(C_{ox}\) for the classchip from the values given.}
+
+The capacitance of a capacitor is 
+\begin{equation*}
+    C=\varepsilon\frac{A}{d}
+\end{equation*}
+When using the symbols used in the lab manual this becomes
+
+\begin{equation*}
+    C_{ox} = \varepsilon_{ox}\varepsilon_0\frac{WL}{t_{ox}}
+\end{equation*}
+We want the capacitance per square micron, so we calculate
+\begin{equation*}
+    \frac{C_{ox}}{WL} = \varepsilon_{ox}\varepsilon_0\frac{1}{t_{ox}} = 3.9\cdot8.86\cdot10^{-12}\frac{F}{m}\frac{1}{300\cdot10^{-10}m} = 0.0011518 \frac{F}{m^2} = 1.1518 \frac{fF}{\mu m^2}
+\end{equation*}
+
+\subsection{Write the expression for the drain current in saturation including the Early effect.}
+The expression for the saturation current when taking the Early effect into account is
+\begin{equation*}
+    I = I_{dsat}+\left(1+\frac{V_{ds}}{V_E}\right)
+\end{equation*}
+
+\subsection{Sketch the setups you will use.}
+\begin{figure}
+    \begin{subfigure}{0.5\textwidth}
+        \center
+        \begin{circuitikz}[american voltages] \draw
+            (0,0) node[nmos] (mos) {}
+            (mos.base) node[anchor=west] {} -- (1,0) to[short] (1,-1)
+            (1,-1) node[ground] {} (1,-1)
+            (-1.5,-1) to[V] (-1.5,-0) -- (mos.gate)
+            (mos.gate) node[anchor=east] {} 
+            (-1.5,-1) node[ground] {} (-1.5,-1)
+            (mos.drain) node[anchor=south] {} -- (0, 1) 
+            (-2,1) to[V=$V_{d}$] (0,1)
+            (-2,0.5) node[ground] {} to (-2,1) 
+            (mos.source) node[anchor=north] {} to (0,-2)
+            (0,-2) node[ground] {} to (0,-2)
+            (-2,-0.5) node[anchor=east] {K230}
+            (-0.6, 0.3) node[anchor=east] {K236}
+        ;\end{circuitikz}
+        \caption{}
+    \end{subfigure}
+    \begin{subfigure}{0.5\textwidth}
+        \center
+        \begin{circuitikz}[american voltages] \draw
+            (0,0) node[pmos] (mos) {}
+            (mos.base) node[anchor=west] {} -- (1,0) to[short] (1,1)
+            (1,1) node[rrail] {} (1,1)
+            (mos.gate) -- (-1.5,0) to[V] (-1.5,1) node[rrail] {}
+            (mos.gate) node[anchor=east] {} 
+            (mos.source) node[anchor=south] {} -- (0, 1)
+            (0,1) node[rrail] {}
+            node[right] {$V_{dd}$}
+            (2,1) node[rrail] {} to[short] (2,-2) to[short] (0,-2)
+            %(0,-2.0) to[V=$V_d$] (mos.drain)
+            (mos.drain) to[V_=$V_d$] (0,-2)
+            (-2,0.5) node[anchor=east] {K230}
+            (+1.4, -1.5) node[anchor=east] {K236}
+        ;\end{circuitikz}
+        \caption{}
+    \end{subfigure}
+    \caption{Experimental setup for both pMOS and nMOS transistors that can be used in all three experiments. The TRIAX+ connector of the K236 is always
+    connected to the transistor terminal.}
+    \label{fig:setup1}
+\end{figure}
+Fig.~\ref{fig:setup1} shows the setups that will be used for all three experiments. The K236 is placed between the supply rail and drain terminal
+of the pMOS in order to use the same rail for lower noise.
+
+\end{document}

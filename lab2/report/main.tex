@@ -1,0 +1,176 @@
+\input{pre}
+
+\tikzset{rrail/.style={rground,yscale=-1}}
+\newcommand{\reffig}[1]{Fig.~\ref{#1}}
+
+\begin{document}
+\input{frontpage}
+\newpage
+\section{Experiment 1}
+\begin{figure}
+    \begin{subfigure}{0.5\textwidth}
+        \center
+        \begin{circuitikz}[american voltages] \draw
+            (0,0) node[nmos] (mos) {}
+            (mos.base) node[anchor=west] {} -- (1,0) to[short] (1,-1)
+            (1,-1) node[ground] {} (1,-1)
+            (-1.5,-1) to[V] (-1.5,-0) -- (mos.gate)
+            (mos.gate) node[anchor=east] {} 
+            (-1.5,-1) node[ground] {} (-1.5,-1)
+            (mos.drain) node[anchor=south] {} -- (0, 1)
+            (0,1) node[rrail] {}
+            node[right] {$V_{dd}$}
+            (mos.source) node[anchor=north] {} to[ammeter=K236, name=M] (0,-2)
+            (0,-2) node[ground] {} to (0,-2)
+            (-2,-0.5) node[anchor=east] {K230}
+            (-0.3, -1.5) node[anchor=east] {K236}
+        ;\end{circuitikz}
+        \caption{}
+    \end{subfigure}
+    \begin{subfigure}{0.5\textwidth}
+        \center
+        \begin{circuitikz}[american voltages] \draw
+            (0,0) node[pmos] (mos) {}
+            (mos.base) node[anchor=west] {} -- (1,0) to[short] (1,1)
+            (1,1) node[rrail] {} (1,1)
+            (mos.gate) -- (-1.5,0) to[V] (-1.5,1) node[rrail] {}
+            (mos.gate) node[anchor=east] {} 
+            (mos.source) node[anchor=south] {} -- (0, 1)
+            (0,1) node[rrail] {}
+            node[right] {$V_{dd}$}
+            (mos.drain) node[anchor=north] {} to[ammeter=K236, name=M] (0,-2)
+            (0,-2) node[ground] {} to (0,-2)
+            (-2,0.5) node[anchor=east] {K230}
+            (-0.3, -1.5) node[anchor=east] {K236}
+        ;\end{circuitikz}
+        \caption{}
+    \end{subfigure}
+    \caption{Experimental setup for experiment 1. We measured \(I_{ds}\) at the source terminal of the native nMOS transistor (a)
+    and drain terminal of the well type pMOS transistor (b).}
+    \label{fig:setup1}
+\end{figure}
+\begin{figure}
+    \center
+    \includegraphics{ex1.eps}
+    \caption{\(I_{ds}\) as a function of the gate voltage \(V_g\) for the native nMOS and well type pMOS transistors. Lines are linear fits
+    to the points marked with circles. The threshold voltages \(V_{tn}=0.65\) V and \(V_{tp} = 1\) V are also marked.}
+    \label{fig:ex1}
+\end{figure}
+We measured the \(I_{ds}\) currents of both the native and well transistors using the setups shown in \reffig{fig:setup1}. Our measurements 
+can be seen in \reffig{fig:ex1}. The fitted lines have the following equations:
+\begin{align*}
+    I_{dsn} & = e^{-30.25}e^{24.68V_g} \\
+    I_{dsp} & = e^{-42.71}e^{27.5V_g} 
+\end{align*}
+For the native nMOS and well type pMOS respectively.
+
+Since the current through the transistor in the subtreshold region can be described by the equation
+\begin{equation*}
+    I_{ds} = I_0e^{\frac{\kappa V_g}{U_t}}\left(e^{\frac{-V_s}{U_t}}-e^{\frac{-V_d}{U_t}}\right)
+\end{equation*}
+We can find \(I_0\) and \(\kappa\) from the fitted equations above, assuming \(U_t=26\) mV.
+\begin{align*}
+    I_{n0} = e^{-30.25} & = 72.9\text{ fA} \quad \kappa_n = 0.64 \\
+    I_{p0} = e^{-42.71} & = 0.28\text{ aA} \quad \kappa_p = 0.72
+\end{align*}
+The extrapolated \(\kappa\) values are too low, which is likely due to the \(U_t=26\) mV assumption not being valid as it
+depends on the temperature of the junction which we do not know. The extrapolated values for the quiescent currents are also 
+much lower than what we measure. We measure 
+\begin{equation*}
+    I_{n0} = 84 \text{ pA} \quad I_{p0} = 39 \text{ pA}
+\end{equation*}
+This number includes the leakage current and noise, and is larger for the nMOS transistor because electrons have higher mobility than holes.
+Additionally, the SMU is not capable of measuring currents as low as predicted by the theoretical fits.
+
+We measure threshold currents
+\begin{equation*}
+    I_{nt} = 29.3 \mu \text{A} \quad I_{pt} = 10.9 \mu \text{A}
+\end{equation*}
+With the ratio \(\frac{I_{nt}}{I_{pt}}=2.69\) which is the relative mobility of electrons and holes. Ideally this should be 2.5.
+\section{Experiment 2}
+We use the measurement setup shown in \reffig{fig:setup2} to measure \(V_s\) as a function of \(V_g\) when a constant current of
+1 nA is forced through the transistor. The results for both transistors can be seen in \reffig{fig:ex2vsvg}. The lines
+are linear fits and the slope of the lines are the \(\kappa\) values for the nMOS and pMOS transistors.
+This result can be derived by considering the current in saturation mode \(e^{\frac{-V_{ds}}{U_t}} \sim 0\)
+\begin{equation*}
+    I_{ds} = I_0e^{\frac{\kappa V_g - V_s}{U_t}}
+\end{equation*}
+Since we are forcing a constant current \(I_f\) through the transistor we have
+\begin{align*}
+    I_f & = I_0e^{\frac{\kappa V_g - V_s}{U_t}} \\
+        &\Updownarrow \\
+    V_s &= \kappa V_g - \frac{\ln\left(I_f\right)}{\ln\left(I_0\right)}U_T \\
+    &\Downarrow \\
+    \kappa &= \frac{d V_s}{d V_g} 
+\end{align*}
+From the fits we obtain
+\begin{equation*}
+    \kappa_n = 0.81 \quad \kappa_p = 0.86
+\end{equation*}
+\begin{figure}
+    \begin{subfigure}{0.5\textwidth}
+        \center
+        \begin{circuitikz}[american voltages, american currents] \draw
+            (0,0) node[nmos] (mos) {}
+            (mos.base) node[anchor=west] {} -- (1,0) to[short] (1,-1)
+            (1,-1) node[ground] {} (1,-1)
+            (-1.5,-1) to[V] (-1.5,-0) -- (mos.gate)
+            (mos.gate) node[anchor=east] {} 
+            (-1.5,-1) node[ground] {} (-1.5,-1)
+            (mos.drain) node[anchor=south] {} -- (0, 1)
+            (0,1) node[rrail] {}
+            node[right] {$V_{dd}$}
+            (mos.source) node[anchor=north] {} to[I] (0,-2)
+            (0,-2) node[ground] {} to (0,-2)
+            (-2,-0.5) node[anchor=east] {K230}
+            (-0.3, -1.5) node[anchor=east] {K236}
+        ;\end{circuitikz}
+        \caption{}
+    \end{subfigure}
+    \begin{subfigure}{0.5\textwidth}
+        \center
+        \begin{circuitikz}[american currents,american voltages] \draw
+            (0,0) node[pmos] (mos) {}
+            (mos.base) node[anchor=west] {} -- (1,0) to[short] (1,1)
+            (1,1) node[rrail] {} (1,1)
+            (mos.gate) -- (-1.5,0) to[V] (-1.5,1) node[rrail] {}
+            (mos.gate) node[anchor=east] {} 
+            (0,2) to[I] (mos.source) 
+            (0,2) node[rrail] {}
+            node[right] {$V_{dd}$}
+            (0,-1) node[ground] {} -- (mos.drain) 
+            (-2,0.5) node[anchor=east] {K230}
+            (-0.3, 1.7) node[anchor=east] {K236}
+        ;\end{circuitikz}
+        \caption{}
+    \end{subfigure}
+    \caption{Experimental setup for experiment 2. The current source symbol shows the direction in which current was
+    sourced. We measured voltage at the source terminals of both the nMOS (a) and pMOS (b) transistors.}
+    \label{fig:setup2}
+\end{figure}
+\begin{figure}[!htb]
+    \center
+    \includegraphics{ex2vsvg.eps}
+    \caption{Voltage at the source terminal as a function of \(V_g\) when a current of 1 nA is forced through the transistor.
+    The compliance level of 3 V is hit at 4.4 V for both transistors.}
+    \label{fig:ex2vsvg}
+\end{figure}
+\begin{figure}
+    \center
+    \includegraphics{ex2kappavg.eps}
+    \caption{\(\kappa\) as a function of \(V_g\) when a constant current of 1 nA is forced through the transistor. \(\kappa\) 
+    is obtained as the approximate derivative of the fit regions in Fig.~\ref{fig:ex2vsvg}.}
+    \label{fig:ex2kappavg}
+\end{figure}
+\reffig{fig:ex2kappavg} shows the approximate derivative of the linear section in \reffig{fig:ex2vsvg}. This is the momentary value of
+\(\kappa\). The value of \(\kappa\) is not constant because the thickness of the depletion layer changes depending on 
+the gate voltage. Since \(\kappa = \frac{C_{ox}}{C_{ox}+C_{dep}}\), the value of \(\kappa\) will increase with the thickness of
+the depletion layer as \(C_{dep} = \epsilon\frac{A_{dep}}{d_{dep}}\) where \(d_{dep}\) is the thickness of the layer.
+The variation is relatively small and the extrapolated value from the earlier fit, also shown in \reffig{fig:ex2kappavg} is a good 
+approximation. The assumption that \(\kappa\) is constant in saturation mode is therefore not entirely true, but it is a decent
+approximation.
+
+The value of \(\kappa\) obtained for both MOSFETs differ between the two experiments, however the value obtained in experiment 2
+is the most accurate because it is derived without the need to assume that \(U_T=26\) mV. This assumption is unlikely to
+hold as the junction temperature is most likely not room temperature.
+\end{document}

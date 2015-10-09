@@ -1,0 +1,103 @@
+\input{pre}
+\begin{document}
+\input{frontpage}
+\newpage
+\section{Post-Lab}
+\subsection{How does the thickness of the depletion region depend on the doping and on the
+channel (surface) potential? Assume that the doping density is uniform.}
+
+The depth of a depletion layer as a function of the majority and minority carrier concentrations
+is given by 
+\begin{equation*}
+    d = \sqrt{\frac{2\varepsilon_s}{q}\frac{N_A+N_D}{N_AN_D}\psi_s}
+\end{equation*}
+
+Even in subthreshold there will be a very small inversion layer under the oxide. This layer will have
+a large concetration of holes, for the pMOS, compared to the concentration of the acceptors in the well.
+
+Since
+\begin{equation*}
+    \frac{N_A+N_D}{N_AN_D} \simeq \frac{1}{N_A} \quad \text{for} \quad N_D \gg N_A
+\end{equation*}
+
+The depth of the depletion region can be approximated as
+
+\begin{equation*}
+    d = \sqrt{\frac{2\varepsilon_s}{qN_A}\psi_s}
+\end{equation*}
+
+\subsection{ Explain why \(\kappa\) varies with the source voltage at constant current (as in the source
+follower).}
+
+Because a constant current is flowing through the transistor, the source voltage \(V_s\) and surface potential
+\(\psi_s\) are linked such that a fixed amount of electrons diffuse through the channel. When \(V_s\) changes, \(\psi_s\)
+must also change in response to keep the current constant. Since we are in the subthreshold region, this change in 
+\(\psi_s\) will change the depth of the depletion layer under the oxide. As the depletion layer changes, its capacitance
+will also change which will increase or decrease the value of \(\kappa\).
+
+When \(V_s\) increases, \(\psi_s\) will increase and therefore \(\kappa\) will increase because \(C_{dep}\) decreases.
+When \(V_s\) decreases, \(\kappa\) likewise decreases.
+
+\subsection{Do the differences in bulk doping account for differences in \(\kappa\) between the native and well devices?}
+The well is doped less heavily than the p-substrate. Therefore an increase in \(V_g\) is going to cause larger increase
+in the depletion area in a well device than in a native device. A larger increase in the depletion area means that the
+capacitance of the depletion layer in the well device is lower, which leads to a higher \(\kappa\) value.
+
+This is indeed what we observed in both experiment 1 and 2, where the pMOS transistor had a higher \(\kappa\) than the 
+native nMOS transistor.
+
+\subsection{From your results in Experiments 1 and 2, state under what conditions the assumption that \(\kappa\) 
+is constant is reasonable}
+In the subthreshold regime, it is reasonable to assume that \(\kappa\) is constant because the changes in its value
+are very small as observed in experiment 2. The fit of the linear region in experiment one which represents \(\kappa\) 
+over \(U_T\) is also a very good approximation with small residuals, which indicates that \(\kappa\) is approximately 
+constant, assuming \(U_T\) is constant.
+
+\subsection{By fabricating a well device in its own well, we can use the well as a second gate -this gate is called a back gate. 
+Derive an expression for the current in a saturated well device that shows explicitly the role of the back gate (i.e.,\(V_w\)).}
+
+The equation for \(I_{ds}\) for an nMOS transistor in subthreshold is 
+\begin{equation*}
+    I_{ds} = I_0e^{\frac{\kappa V_g}{U_T}}\left(e^{\frac{-V_s}{U_T}}-e^{\frac{-V_d}{U_T}}\right)
+\end{equation*}
+
+With all variables referenced to the substrate voltage, ground. For the pMOS, the equation is almost the same, the
+only difference being that all voltages are measured relative to the voltage of the well \(V_w\). 
+The difference is mobility of electrons and holes are contained in \(I_0\). Adding \(V_w\) as the reference to the
+above equation we obtain
+
+\begin{equation*}
+    I_{ds} = I_0e^{\frac{\kappa(V_w - V_g)}{U_T}}\left(e^{\frac{-(V_w -V_s)}{U_T}}-e^{\frac{-(V_w - V_d)}{U_T}}\right)
+\end{equation*}
+
+As the general expression for the current through a pMOS transistor in an n-well, in subthreshold.
+
+\subsection{Design an ideal source follower (ideal in the sense of having unity gain).}
+In the source follower, one of the transistors acts as a constant current source. In this case this is the transistor
+with the gate input voltage \(V_b\). The problem with the native source follower is that, as we saw in experiment 2,
+\(V_s\) and \(V_g\) are related by \(\kappa\). This means that the source follower depicted in the exercise manual 
+does not have unity gain. The actual gain is \(\kappa\).
+
+Using two pMOS well type transistors in the same configuration as the nMOS source follower and  with their wells tied to their source,
+we can compute \(V_{out}\) as a function of \(V_{in}\), using the equation from problem 5:
+
+\begin{equation*}
+    I_{ds} = I_0e^{\frac{\kappa(V_w - V_g)}{U_T}}\left(e^{\frac{-(V_w -V_s)}{U_T}}-e^{\frac{-(V_w - V_d)}{U_T}}\right)
+\end{equation*}
+
+The current through the two transistors must always be equal, therefore
+\begin{equation*}
+    I_0e^{\frac{\kappa(V_{out} - V_{b})}{U_T}}\left(e^{\frac{-(V_{out} -V_{out})}{U_T}}-e^{\frac{-(V_{out} - 0)}{U_T}}\right) = I_0e^{\frac{\kappa(V_{dd} - V_{in})}{U_T}}\left(e^{\frac{-(V_{dd}-V_{dd})}{U_T}}-e^{\frac{-(V_{dd} - V_{out})}{U_T}}\right)
+\end{equation*}
+Both transistors are in saturation, so we ignore the miniscule backward flowing current from the drain and simplify
+\begin{align*}
+    e^{\frac{\kappa(V_{out} - V_{b})}{U_T}} &= e^{\frac{\kappa(V_{dd} - V_{in})}{U_T}} \\
+    V_{out} = -V_{in} +V_{dd} + V_{b}
+\end{align*}
+This shows that the circuit has a gain of \(-1\), we therefore swap the \(V_b\) and \(V_{in}\) inputs in the circuit
+and obtain
+\begin{equation*}
+    V_{out} = V_{in} +V_{dd} - V_{b}
+\end{equation*}
+which has a gain of 1 as required.
+\end{document}

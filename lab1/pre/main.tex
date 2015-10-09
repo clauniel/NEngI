@@ -1,0 +1,91 @@
+\input{pre}
+\begin{document}
+\input{frontpage}
+\newpage
+\section{Prelab}
+\subsection{Voltmeters and ammeters.}
+
+An ideal voltmeter as infinite impedance and is placed in parallel with the component to
+be measured.
+
+An ideal ammeter has zero impedance and is placed in series with the component to be measured.
+
+\subsection{Draw the test stup you would use to measure the current as a function of voltage through a 
+resistor and a diode.}
+
+\begin{figure}
+    \center
+    \begin{circuitikz}[scale=1.2, american voltages, american resistors]\draw
+        (0,0) node {}
+        to[V] (0,2.5)
+        to[ammeter] (2,2.5)
+        to[R] (2,1)
+        to[D] (2,0)
+        to[short] (0,0)
+        (1,0) node[ground] {}
+    ;\end{circuitikz}
+    \caption{Circuit measuring the current through the resistor and diode as a function of the
+    voltage provided by the voltage source.}
+    \label{fig:res-diode}
+\end{figure}
+Fig.~\ref{fig:res-diode} shows a circuit that will measure the current through the resistor and diode
+as a function of the voltage provided by the voltage source.
+
+\begin{figure}
+    \center
+    \begin{subfigure}{0.8\textwidth}
+        \center
+        \includegraphics{prelab-1-1-2-1.eps}
+        \caption{}
+    \end{subfigure}
+
+    \begin{subfigure}{0.8\textwidth}
+        \center
+        \includegraphics{prelab-1-1-2-2.eps}
+        \caption{}
+    \end{subfigure}
+    \caption{Current through the resistor when \textbf{S} is replaced with (a) a voltage source and (b)
+a current source.}
+    \label{fig:qualia}
+\end{figure}
+
+\subsection{Measuring Resistance with a Source-Measure Unit.}
+The current through the resistor in Fig.~1.2 of the lab manual for a resistance approaching
+infinity can be seen in Fig.~\ref{fig:qualia} when replacing \textbf{S} with (a) a voltage source
+and (b) a current source.
+
+If the SMU were to attempt to supply a constant current to an open circuit with infinite resistance,
+the voltage would keep rising until it hit the 1100 V limit.
+
+\section{Accuracy of the Keithley SMU}
+When using the SMU to calculate resistance, we use Ohm's law \(R = \frac{V}{I}\) and plug in our measurements.
+The maximum error will occur when \(I\) is minimal and \(V\) is maximal. In I/V mode supplying 50 \(\mu\)A to
+a 100k resistor, the maximum error can be calculated as follows:
+
+The SMU is set to supply a current of 50 \(\mu\)A, the error tolerance at this current is found in the datasheet
+to be (0.05\%+20 nA) placing the maximum real current supplied to the resistor at
+\begin{equation*}
+    I_{real}=I_{meas}(1+0.05\%)+20 nA
+\end{equation*}
+Where \(I_{meas}\) denotes the "measured" current on the source side.
+
+This will lead to a real voltage across the resistor \(V_{real}=I_{real}R\). Since the resistor is an ideal 100 k\(\Omega\)
+resistor, this voltage will be close to 5 V. The measurement error tolerance at 5 V is given in the datasheet as
+(0.025\%+1 mV). Since the measurement error is relative to the measured value, and not the real value, the maximum
+measured value is given by
+\begin{align*}
+    V_{real} &= V_{meas}(1-0.025\%)-1mV \\
+    &\Updownarrow \\
+    V_{meas} &= \frac{V_{real}+1mV}{1-0.025\%}
+\end{align*}
+For a 100 k\(\Omega\) resistor the maximum measurement error leads to a calculated resistance of 100135 \(\Omega\), an error
+of 0.135\%.
+
+In V/I mode the error is calculated in the reverse way, taking into account the change in error tolerances when switching
+between source and measure mode, by assuming that the 5 V is the maximum value and that the error is negative on
+the source side and positive on the measurement side. This leads to a maximum calculated resistance of 100128 \(\Omega\), an error of 0.128\%.
+
+The same result could have been obtained by converting the absolute error term in the SMU datasheet to a relative error
+assuming operating points of 50 \(\mu\)A and 5 V, and combining the relative errors on the source and measurement sides.
+This approach works both in V/I and I/V mode.
+\end{document}

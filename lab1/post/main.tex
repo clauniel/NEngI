@@ -1,0 +1,135 @@
+\input{pre}
+\begin{document}
+\input{frontpage}
+\newpage
+\begin{figure}
+    \center
+    \includegraphics[width=\textwidth]{manual-measure.eps}
+    \caption{Manual measurement of the I-V characteristics of the resistor. }
+    \label{fig:manual-measure}
+\end{figure}
+\section{Manual Data Acquisition}
+We performed 5 measurements in both V/I and I/V mode using the 236 SMU. In V/I mode we 
+performed order of magnitude steps from 0.0001 V to 10 V, and in I/V mode from 1\(\mu\)A to
+10mA. Fig.~\ref{fig:manual-measure} shows the I-V characteristics we obtained. In a V/I
+plot, the slope of the graph is the inverse of the resistance. Using linear regression forced
+through zero, we obtain
+\begin{equation*}
+    R_{V/I} = 991.97\Omega, \quad R_{I/V} = 993.94 \Omega
+\end{equation*}
+Using the resistors color code we identified it as a 1k\(\Omega\) 1\% tolerance resistor, placing
+the found resistance value within its specification.
+
+Using single measurements at the high end of the scale, we find 
+\begin{equation*}
+    R_{V/I} = 992.06\Omega,\quad R_{I/V} = 994.00\Omega
+\end{equation*}
+
+And using single measurements at the low end of the scale
+\begin{equation*}
+    R_{V/I} = 1111.11\Omega, \quad R_{I/V} = 1100.00\Omega
+\end{equation*}
+These values are very far from the tolerance value of the resistor and far outside
+of the combined source and measurement error range. The large error is most likely
+due to us dropping the two least significant digits in the measurement because they did
+not settle.
+
+While the I/V mode measurements yield a result closer to the nominal value of the resistor,
+but values are within the tolerance range and we therefore cannot conclude which mode is more
+accurate based on this, assuming of course we would trust the resistor manufacturer not to 
+ship resistors outside of their tolerance range.
+
+Instead we calculate the maximum combined source/measurement error in both modes and conclude
+that V/I mode is more precise.
+
+\section{An Exponential Transfer Function}
+\begin{figure}
+    \center
+    \includegraphics[width=0.5\textwidth]{ivc.eps}
+    \caption{I-V characteristic of the base-collector PN junction. The exponentional part of the curve
+    starts just after 0.2 V. The compliance limit of 10 mA is hit at 0.81V.}
+    \label{fig:ivc}
+\end{figure}
+
+\begin{figure}
+    \center
+    \begin{subfigure}{.8\textwidth}
+    \center
+        \includegraphics[width=\textwidth]{log10ivc.eps}
+        \caption{}
+    \end{subfigure}
+    
+    \begin{subfigure}{.8\textwidth}
+    \center
+        \includegraphics[width=\textwidth]{lnivc.eps}
+        \caption{}
+    \end{subfigure}
+    \caption{I-V characteric of the base-collector PN junction on semilog plots in base 10 (a) and base \(e\) (b). 
+    The square measurement points were used to fit a linear function. Fewer data points were gathered in the \(0.2-0.5\) V
+range to save measurement time. The flattening of the curve at \(0.80\) V is a result of our 10 mA current limit being met.}
+\label{fig:ivclog}
+\end{figure}
+
+We used the Matlab function \texttt{iv()} to gather data points from the pico-ampere to the milli-ampere current range, 
+by sweeping from 0 V to 0.85 V in steps of 0.01 V between 0-0.2 V and 0.5-0.8 V, and in steps of 0.05 V between 0.2-0.5 V.
+
+\subsection{Over what range of currents/voltages does the diode behave exponentionally?}
+
+Fig.~\ref{fig:ivc} shows the I-V characteristic of the base-collector junction. The exponentional part of the curve begins
+shortly before 0.2 V and we will use the 0.2-0.8 V range when calculating the slope of the exponentional. The exponential
+curve will continue beyond 0.8 V, but we cannot follow it since we hit the current limit of 10 mA.
+
+\subsection{How small a current were you able to measure confidently?}
+Figures~\ref{fig:ivclog} and~\ref{fig:ivelog} show semilog plots of the I-V characteristics for the base-collector and
+base-emitter junctions respectively. The measurements begin to look unreliable, because of noise, below a few pico-amperes.
+
+\subsection{What is the slope of the exponential, expressed in mV/e-fold and mV/decade of current?}
+We fit a linear function to the data points between 0.2-0.8 V in Figures~\ref{fig:ivclog} and~\ref{fig:ivelog}. 
+The slope of the exponential in mV/decade is then the inverse of the slope of the linear function obtained in 
+the base 10 log plots. Likewise, the slope of the exponentional in mV/e-fold is the inverse of the linear function
+slope obtained in the base \(e\) log plots.
+
+We obtain the following slopes:
+\begin{align*}
+    \frac{dV_{BC}}{dI_{BC}} &= 35.34 \frac{\text{mV}}{\text{e-fold}} = 81.38 \frac{\text{mV}}{\text{decade}} \\
+    \frac{dV_{BE}}{dI_{BE}} &= 30.35 \frac{\text{mV}}{\text{e-fold}} = 69.88 \frac{\text{mV}}{\text{decade}}
+\end{align*}
+
+
+\begin{figure}
+    \center
+    \begin{subfigure}{.8\textwidth}
+    \center
+        \includegraphics[width=\textwidth]{log10ive.eps}
+    \caption{}
+    \end{subfigure}
+    
+    \begin{subfigure}{.8\textwidth}
+    \center
+        \includegraphics[width=\textwidth]{lnive.eps}
+    \caption{}
+    \end{subfigure}
+    \caption{I-V characteric of the base-emitter PN junction on semilog plots in base 10 (a) and base \(e\) (b). 
+    The square measurement points were used to fit a linear function. Fewer data points were gathered in the \(0.2-0.5\) V
+range to save measurement time. The flattening of the curve at \(0.80\) V is a result of our 10 mA current limit being met.}
+\label{fig:ivelog}
+\end{figure}
+
+We are measuring the PN-junctions in the 2N3904 BJT while leaving the terminal not in use floating. A single PN-junction is a
+diode, and for a non-ideal diode, the current though the diode is given by 
+\begin{equation*}
+    I_D = I_0\left(e^{\frac{qV}{nkT}}-1\right)
+\end{equation*}
+Where \(k\) is Boltzmann's constant, \(q\) is the elementary charge and \(n\) is the ideality factor of the diode.
+
+If the diode temperature was approximately the same as the temperature of the lab at the time of the experiment, say \(\sim295K\),
+the slope of the exponential in mV/e-fold will be 
+\begin{equation*}
+    \frac{dV_{BE}}{dI_{BE}} = 25.42n \frac{\text{mV}}{\text{e-fold}}
+\end{equation*}
+Meaning that our ideality factors for the base-collector and base-emitter junctions are
+\begin{align*}
+    n_{BC} &= \frac{{35.34 \frac{mV}{\text{e-fold}}}}{25.42\frac{mV}{\text{e-fold}}} = 1.39 \\
+    n_{BE} &= \frac{{30.35 \frac{mV}{\text{e-fold}}}}{25.42\frac{mV}{\text{e-fold}}} = 1.19
+\end{align*}
+\end{document}
