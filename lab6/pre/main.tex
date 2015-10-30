@@ -1,0 +1,178 @@
+\input{pre}
+\tikzset{rrail/.style={rground,yscale=-1}}
+\begin{document}
+\input{frontpage}
+\newpage
+\section{Pre-Lab}
+\subsection{2-Node WTA Network}
+\begin{figure}
+    \center
+    \begin{circuitikz}\draw
+        %WTA 1
+        (-1,0) node[anchor=south west] (C) {$V_c$}
+        (-1,-2) node[nmos] (Mb1) {}
+        (-3,0) node[nmos,xscale=-1] (M1) {} 
+        (M1) node[anchor=south east] {$M_1$}
+        (-1, 2) node[nmos] (M2) {}
+        (M2) node[anchor=south west] {$M_2$}
+        (-1,4) node[pmos,xscale=-1] (Mp2) {}
+        (-3,4) node[pmos] (Mp1) {}
+        (1,4) node[pmos] (Mp3) {}
+        %WTA 2
+        (6,-2) node[nmos] (Mb2) {}
+        (4,0) node[nmos,xscale=-1] (M3) {}
+        (M3) node[anchor=south east] {$M_3$}
+        (6,0) node[anchor=south west] {$V_c$}
+        (4,4) node[pmos] (Mp4) {}
+        (6,2) node[nmos] (M4) {}
+        (M4) node[anchor=west] {$M_4$}
+        (6,4) node[pmos,xscale=-1] (Mp5) {}
+        (8,4) node[pmos] (Mp6) {}
+        %ground connectections
+        (M1.source) node[ground] {}
+        (Mb1.source) node[ground] {}
+        (Mb2.source) node[ground] {}
+        (M3.source) node[ground] {}
+        %Vdd connections
+        (Mp1.source) node[rrail] {}
+        (Mp2.source) node[rrail] {}
+        (Mp3.source) node[rrail] {}
+        (Mp4.source) node[rrail] {}
+        (Mp5.source) node[rrail] {}
+        (Mp6.source) node[rrail] {}
+        %inputs
+        (Mb1.gate) node[anchor=south] {$V_b$}
+        (Mb2.gate) node[anchor=south] {$V_b$}
+        (Mp1.gate) node[anchor=south] {$V_{i1}$}
+        (Mp4.gate) node[anchor=south] {$V_{i_2}$}
+        %outputs
+        (Mp3.drain) to[short,i=$I_{o1}$] ++(0,-0.1)
+        (Mp6.drain) to[short,i=$I_{o2}$] ++(0,-0.1)
+        %interconnect
+        (Mp2.gate) to[short, *-] (Mp2.gate |- Mp2.drain) to[short,-*] (Mp2.drain)
+        (Mp5.gate) to[short, *-] (Mp5.gate |- Mp5.drain) to[short,-*] (Mp5.drain)
+
+        (Mp2.drain) to[short] (M2.drain)
+        (Mp5.drain) to[short] (M4.drain)
+
+        (Mp1.drain) to[short] (M1.drain)
+        (Mp4.drain) to[short] (M3.drain)
+        (M2.gate) to[short, -*] (M1.drain |- M2.gate)
+        (M4.gate) to[short, -*] (M3.drain |- M4.gate)
+
+        (M2.source) to[short] (Mb1.drain)
+        (M4.source) to[short] (Mb2.drain)
+
+        (M1.gate) to[short,-*] (-1,0) to[short,-*] (6,0)
+        %intermediate signals
+        (M2.gate) node[anchor=south] {$V_{o1}$}
+        (M4.gate) node[anchor=south] {$V_{o2}$}
+        (Mp1.drain) to[short,i=$I_{i1}$] ++(0,-0.1)
+        (Mp4.drain) to[short,i=$I_{i2}$] ++(0,-0.1)
+    ;\end{circuitikz}
+    \caption{}
+\end{figure}
+When \(I_{i1}=I_{i2}\) it follows that \(I_{o1}=I_{o2}\) since for \(M_1\):
+\begin{equation*}
+    I_{i1} = I_0e^{\frac{\kappa V_c - 0}{U_T}}-I_0e^{\frac{\kappa V_c - V_{o1}}{U_T}}
+\end{equation*}
+And for \(M_2\)
+\begin{equation*}
+    I_{i2} = I_0e^{\frac{\kappa V_c - 0}{U_T}}-I_0e^{\frac{\kappa V_c - V_{o2}}{U_T}}
+\end{equation*}
+Where the second term in both equations is the reverse component and the first term is the forward component.
+The only solution to the above equations are that \(V_{o1}=V_{o2}\) and therefore \(I_{o1}=I_{o2}=I_b\), 
+meaning both \(M_2\) and \(M_4\) are conducting.
+
+When \(I_{i1} \gg I_{i2}\), \(V_c\) must increase in order to cope with the increased current being forced through \(M_1\), causing
+\(M_3\) to open further. However, the current through \(M_3\) is now very low compared to its gate voltage and therefore \(V_{o2}\) drops,
+causing \(M_4\) to enter the deep triode region or even cutoff. Therefore 
+\begin{align*}
+    I_{o2} &\simeq 0 \\
+    I_{o1} &\simeq 2I_b \\
+    V_{o1} &\gg V_{o2} 
+\end{align*}
+
+This can be generalized to the \(n\)-input case. Here, for \(I_{i1}=I_{i2}=\ldots=I_{in}\) the output currents will be
+\begin{equation*}
+    I_{o1}=I_{o2}=\ldots=I_{on}=\frac{I_b}{n}
+\end{equation*}
+And for one input current \(I_{ix}\) much larger than any other input, then 
+\begin{equation*}
+    I_{ox} = nI_b
+\end{equation*}
+
+\subsection{Small Signal Model}
+Applying a small differential input current, we have
+\begin{equation*}
+    I_i = I_u \pm \frac{1}{2}\Delta I_{i}
+\end{equation*}
+Because of the Early effect, the only way that transistors \(M_1\) and \(M_3\) can adapt to the changing current going through them
+is to modify their drain voltages, assuming that \(V_c\) is constant (see appendix Fig. 1). The change in drain voltage is given by the drain conductance and
+change in input current
+\begin{equation*}
+    \Delta V_o = \frac{\Delta I_i}{g_d}
+\end{equation*}
+Assuming positive \(\Delta I\) makes \(I_{i1}\) larger, this leads to
+\begin{align*}
+    I_{i1} = I_u+\frac{1}{2}\Delta I \quad & \quad I_{i2} = I_u-\frac{1}{2}\Delta I \\
+                                           &\Downarrow \\
+    V_{o1} = V_u+\frac{1}{2}\frac{\Delta I}{g_d} \quad & \quad V_{o2} = V_u-\frac{1}{2}\frac{\Delta I}{g_d} 
+\end{align*}
+As we are in subthreshold saturation, 
+\begin{equation*}
+    g_d = \frac{I_{sat}}{V_E}
+\end{equation*}
+And when using the bias current \(I_u\)
+\begin{align*}
+    I_{sat} \simeq \frac{I_u}{1+\frac{V_{ds}}{V_E}}
+\end{align*}
+However, since \(V_E\) is very large, this can be approximated as
+\begin{equation*}
+    I_{sat} \simeq I_u
+\end{equation*}
+And therefore
+\begin{equation*}
+    g_d = \frac{I_u}{V_E}
+\end{equation*}
+
+The change in output current is given by the change in output voltage and the gate transconductance of \(M_2\) and \(M_4\)
+\begin{equation*}
+    \Delta I_o = g_m\Delta V_o
+\end{equation*}
+Substituting \(\Delta V_o = \frac{\Delta I_i}{g_d}\) this becomes the input-output current relation is
+\begin{equation*}
+    \frac{\Delta I_{o}}{\Delta I_i} = \frac{g_m}{g_d}
+\end{equation*}
+Since each output current is biased at \(I_u=I_b\) the gate transconductance is
+\begin{equation*}
+    g_m = \frac{\kappa I_b}{U_T}
+\end{equation*}
+The input-output relation is then
+\begin{equation*}
+    \frac{\Delta I_o}{\Delta I_i} = \frac{\kappa I_b V_E}{I_u U_T}
+\end{equation*}
+And when normalized by \(I_b\) and \(I_i\)
+\begin{equation*}
+    \frac{\Delta I_o I_u}{\Delta I_i I_b} = \frac{\kappa V_E}{U_T}
+\end{equation*}
+Normal values of \(V_E\) are 150-750 V, \(\kappa\) is between 0.6-1 and \(U_T=26\) mV at room temperature. Using
+\(V_E=450\) V and \(\kappa=0.8\) the normalized gain is
+\begin{equation*}
+    A_I = \frac{\Delta I_o I_u}{\Delta I_i I_b} = \frac{0.8\cdot450 V}{26\cdot 10^{-3} V} \simeq 14\cdot10^{3}
+\end{equation*}
+
+The assumption that \(V_c\) does not change holds for small differential currents because if \(V_c\) went up or down it would
+try to force both the currents through \(M_1\) and \(M_4\) up or down with it according to the transconductance of the transistors.
+This is impossible since we are applying a differential input current which forces one current up and the other down in relation 
+to the common bias.
+
+When operating above threshold, \(g_m\) for transistors \(M_2\) and \(M_4\) changes to 
+\begin{equation*}
+    g_m = \beta\left(\kappa\left(V_o-V_T\right)-V_c\right)
+\end{equation*}
+While the drain conductance stays the same.
+
+\subsection{Draw the Setups}
+See appendix.
+\end{document}

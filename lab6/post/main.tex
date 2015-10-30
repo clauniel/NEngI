@@ -1,0 +1,83 @@
+\input{pre}
+
+\tikzset{rrail/.style={rground,yscale=-1}}
+\newcommand{\reffig}[1]{Fig.~\ref{#1}}
+
+\begin{document}
+\input{frontpage}
+\newpage
+\section{Post-Lab}
+\subsection{Zero output current at non-zero input voltage with fixed output voltage.}
+Assuming that the question pertains to the simple transconductance amplifier, this effect
+is caused by the output voltage affecting the operating point on the saturation curve of the
+output transistor. Because of the Early voltage, the output transistor will be able to handle
+slightly more or less current than the non-output transistor when its drain voltage is fixed.
+
+This also means that the non-zero input voltage, at which zero output current is observed, will
+change with the fixed output voltage.
+\subsection{nMOS and pMOS simple transconductance amplifiers}
+\begin{figure}
+    \begin{subfigure}{0.5\textwidth}
+        \center
+        \begin{circuitikz}[american voltages, american resistors]\draw
+            (0,0) node[nmos] (Mb) {}
+            (Mb.source) to[short, i=$I_b$] ++(0,-0.1) node[ground] {}
+            (Mb.gate) node[anchor=east] {$V_{b}$}
+            (-1,2) node[nmos] (M1) {}
+            (M1.source) to[short, i=$I_1$] (M1.source |- Mb.drain) to[short] (Mb.drain)
+            (1,2) node[nmos, xscale=-1] (M2) {}
+            (M2.source) to[short, i=$I_2$] (M2.source |- Mb.drain) to[short, -*] (Mb.drain)
+            (-1,4) node[pmos, xscale=-1] (M3) {}
+            (1,4) node[pmos] (M4) {}
+            (M3.drain) to[short] (M1.drain)
+            (M3.drain) to[short, *-] (M3.drain -| M3.gate) to[short, -*] (M3.gate)
+            (M4.drain) to[short, -*] (M2.drain)
+            (M4.source) node[rrail] {}
+            (M3.source) node[rrail] {}
+            (M1.gate) node[anchor=south] {$V_1+$}
+            (M2.gate) node[anchor=south] {$V_2-$}
+            (M2.drain) to[short, i=$I_{out}$] ++(1,0) node[anchor=west] {$V_{out}$}
+        ;\end{circuitikz}
+        \caption{}
+    \end{subfigure}
+    \begin{subfigure}{0.5\textwidth}
+        \center
+        \begin{circuitikz}[american voltages, american resistors]\draw
+            (0,0) node[pmos] (Mb) {}
+            (Mb.source) to[short, i<=$I_b$] ++(0,+0.1) node[rrail] {}
+            (Mb.gate) node[anchor=east] {$V_{b}$}
+            (-1,-2) node[pmos] (M1) {}
+            (M1.source) to[short, i<=$I_1$] (M1.source |- Mb.drain) to[short] (Mb.drain)
+            (1,-2) node[pmos, xscale=-1] (M2) {}
+            (M2.source) to[short, i<=$I_2$] (M2.source |- Mb.drain) to[short, -*] (Mb.drain)
+            (-1,-4) node[nmos, xscale=-1] (M3) {}
+            (1,-4) node[nmos] (M4) {}
+            (M3.drain) to[short] (M1.drain)
+            (M3.drain) to[short, *-] (M3.drain -| M3.gate) to[short, -*] (M3.gate)
+            (M4.drain) to[short, -*] (M2.drain)
+            (M4.source) node[ground] {}
+            (M3.source) node[ground] {}
+            (M1.gate) node[anchor=south] {$V_1-$}
+            (M2.gate) node[anchor=south] {$V_2+$}
+            (M2.drain) to[short, i=$I_{out}$] ++(1,0) node[anchor=west] {$V_{out}$}
+        ;\end{circuitikz}
+        \caption{}
+    \end{subfigure}
+    \caption{The simple transconductance amplifier built using nMOS (a) and pMOS (b) transistors for the differential pair. 
+        The inverting and non-inverting inputs are flipped, and the voltages input bias voltages must now be negative and referenced
+    to \(V_{dd}\).} 
+    \label{fig:q2}
+\end{figure}
+Fig.~\ref{fig:q2} shows the simple transconductance amplifier constructed using nMOS and pMOS transistors.
+
+The conditions for keeping \(M_b\) in saturation are the same for the two transconductance amplifiers, except that
+the signs of the input and bias voltages are positive and negative, and referenced to ground and \(V_{dd}\) for nMOS and
+pMOS configurations respectively.
+\subsection{Advantages of the wide-range vs. simple transconductance amplifier.}
+The wide-range transconductance amplifier uses more transistors than the simple one, 9 vs. 5, and therefore consumes almost double the
+area in the layout. Because of transistor mismatch, the current mirrors used in both amplifiers cannot copy currents precisely and this
+effect is worsened in the wide-range amplifier because it has a series of 3 current mirrors.
+
+On the other hand, the wide-range transconductance amplifier can handle a higher dynamic range of inputs, and when configured in the open
+circuit configuration it does not behave like a source follower for negative differential voltages before applying a large gain.
+\end{document}

@@ -1,0 +1,134 @@
+\input{pre}
+
+\tikzset{rrail/.style={rground,yscale=-1}}
+\newcommand{\reffig}[1]{Fig.~\ref{#1}}
+
+\begin{document}
+\input{frontpage}
+\newpage
+\section{Post-Lab}
+\subsection{Give an intuitive explanation to why the relationship between the above-threshold current
+and the gate voltage is linear in the ohmic region, but quadratic in the saturation region.}
+
+In the ohmic region, there is both a forward and reverse current flowing in the transistor. The currents
+flow by both drift and diffusion and their magnitude depends on the amount of charge available at the drain
+and source ends of the channel. The charge available at the source and drain ends of the channel depends
+on the applied gate voltage, and the charge available at the drain end also depends on the drain voltage.
+
+The current flow depends on the difference of the squared charges, so while \(V_{ds}\) is small compared to \(V_g\), this is approximately
+linear with \(V_{ds}\). Therefore the current in the ohmic region is approximately linear.
+
+In the saturation region, there is no charge at the drain end of the channel because \(V_{ds}\) is so large compared
+to \(V_g\) that it will force the charge away from the drain, creating a pinchoff point. Now the difference in
+the squared charges is a quadratic function only dependent on \(V_s\).
+
+If \(V_{ds}\) is kept constant in the ohmic region, the amount of charge added to the channel ends increases approximately
+linear with \(V_g\) for the same reason as it increases linearly with \(V_{ds}\). An increase in the gate voltage will 
+create additional charge at both ends of the channel.
+
+In the saturation regime, additional charge needed because of an increase in \(V_g\) can only appear at the source, and
+so the relationship between current and gate voltage must be quadratic because the current depends on the difference
+in charge squared between the channel ends.
+
+\subsection{In the subthreshold region: (a) Is the current linearly proportional to the gate voltage in the ohmic region
+like it is above threshold? (b) Does the drain-source voltage at which the current saturates depend on the gate voltage?}
+
+(a) In the subthreshold region. The current that flows is mainly a diffusion current which is exponentially dependent on the
+amount of charge available at both ends of the channel. In the triode region, the current is technically an exponential 
+function of the gate voltage, but because \(V_{ds}\) is small, it can be reduced to an approximately linear function.
+
+(b) Since the current flows mainly by diffusion in the subthreshold regime, the start of the saturation region does not
+depends on the gate voltage like in the superthreshold regime. This is simply because there ceases to be a reverse current
+diffusing from the drain towards the source, and this lets the diffusion current from the source dominate. The point at which
+this begins to happens depends only on \(V_{ds}\) and not \(V_g\), and therefore the start of the saturation region does
+not depend on the gate voltage.
+
+\subsection{Compute the current through a diode-connected transistor with source voltage \(V_s\) and drain voltage \(V_d\).
+    Explain how it behaves like a diode when connected like this. Draw a diode and show how you will replace it with (a) an n-fet
+and (b) a p-fet.}
+
+\begin{figure}[!htb]
+    \begin{subfigure}{0.3\textwidth}
+        \center
+        \begin{circuitikz}\draw
+            (0,0) to[D] (1,0)
+            (0,0) node[anchor=south east] {\(V_a\)}
+            (1,0) node[anchor=south west] {\(V_b\)}
+        ;\end{circuitikz}
+        \caption{}
+    \end{subfigure}
+    \begin{subfigure}{0.3\textwidth}
+        \center
+        \begin{circuitikz}\draw
+            (0,0) node[nmos] (mos) {}
+            (mos.gate) node[anchor=east] {} -- ++(0,0.5)  to[short, -*] (mos.drain |- {{(0,0.5)}})
+            (mos.drain) node[anchor=west] {\(V_d = V_a\)}
+            (mos.source) node[anchor=west] {\(V_s = V_b\)}
+        ;\end{circuitikz}
+        \caption{}
+    \end{subfigure}
+    \begin{subfigure}{0.3\textwidth}
+        \center
+        \begin{circuitikz}\draw
+            (0,0) node[pmos] (mos) {}
+            (mos.gate) node[anchor=east] {} -- ++(0,-0.5)  to[short, -*] (mos.drain |- {{(0,-0.5)}})
+            (mos.drain) node[anchor=west] {\(V_d = V_b\)}
+            (mos.source) node[anchor=west] {\(V_s = V_a\)}
+        ;\end{circuitikz}
+        \caption{}
+    \end{subfigure}
+    \caption{(a) A diode, (b) diode-connected nMOS transistor and (c) diode-connected pMOS transistor. The gate is tied to the drain in both cases.}
+    \label{fig:diode}
+\end{figure}
+In subthreshold, the current through a transistor is given by the following equation if we assume that \(V_s\) is small.
+\begin{equation*}
+    I = I_0e^{\frac{\kappa V_g - V_s}{U_T}}\left(1-e^{- \frac{V_d-V_s}{U_t}}\right)
+\end{equation*}
+If we connect the drain and gate terminals this becomes
+\begin{equation*}
+    I = I_0e^{\frac{\kappa V_g - V_s}{U_T}}\left(1 - e^{-\frac{V_g-V_s}{U_t}}\right)
+\end{equation*}
+As long as the transistor is operating in saturation, this will be approximately
+\begin{equation*}
+    I = I_0e^{\frac{\kappa V_g - V_s}{U_T}}
+\end{equation*}
+And since the transistor is always going to be in saturation because \(V_g\) is connected directly to \(V_d\),
+locking the drain into being reverse biased with respect to the channel voltage, this is always true.
+
+The above equation is an exponential which depends only on the voltage between drain and source, the same as for
+a diode where the current is an exponential function of the voltage across the diode.
+
+Fig.~\ref{fig:diode} shows a diode with voltage labels and the diode connected nMOS and pMOS transistors with matching 
+labels.
+
+\subsection{When a diode transistor is operating forward biased, is it operating in the ohmic region or saturation region? 
+Does it making any difference whether it is biased in sub- or superthreshold?}
+The transistor is operating in the saturation region as explained previously. It must also be operating in subthreshold to function like
+a diode since this is the region where the current is expontentially dependant on the gate voltage (and thus drain voltage).
+
+\subsection{Basic mechanism of amplifier design using MOSFET}
+In subthreshold operation the transconductance of the gate and drain are
+\begin{align*}
+    g_g &= \frac{\partial I}{\partial V_g} = \frac{\kappa I}{U_T} \\
+    g_d &= \frac{\partial I}{\partial V_d} = \frac{I}{V_E}
+\end{align*}
+Where \(V_E\) is the Early voltage. Therefore we have, in subthreshold
+\begin{align*}
+    A = \frac{\partial V_d}{\partial V_g} = \frac{V_E}{I}\frac{\kappa I}{U_T} = \frac{\kappa V_E }{U_T}
+\end{align*}
+
+Above threshold in the saturation region, the conductances above are
+\begin{align*}
+    g_g &= \frac{\partial I}{\partial V_g} = \beta\left(\kappa\left(V_g - V_T\right) - V_s\right) \\
+    g_d &= \frac{\partial I}{\partial V_d} = \frac{I}{V_E}
+\end{align*}
+Which leads to the following gain
+\begin{align*}
+    A = \frac{\partial V_d}{\partial V_g} = \frac{V_E\beta\left(\kappa\left(V_g - V_T\right) - V_s\right)}{I} 
+\end{align*}
+And since the current is \(I_b\) and \(V_s=0\) this becomes
+\begin{align*}
+    A = \frac{\partial V_d}{\partial V_g} = \frac{V_E\beta\kappa\left(V_g - V_T\right)}{I_b} 
+\end{align*}
+
+\end{document}

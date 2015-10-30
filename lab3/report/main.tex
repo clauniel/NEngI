@@ -6,6 +6,136 @@
 \begin{document}
 \input{frontpage}
 \newpage
+\section{Experiment 1: Drain current in the ohmic region}
+\begin{figure}
+    \center
+    \includegraphics{ex1.eps}
+    \caption{Experiment 1: \(I_{ds}\) as a function of \(V_g\) for \(V_{ds} = 50\) mV. The lines are fit to the points
+        visibly above the x-axis. The fitted lines have equations \(I_{nMOS} = 2.576\cdot10^{-6}\frac{V_g}{\Omega}-9.872\cdot10^{-7} A\)
+    and \(I_{pMOS} = 7.514\cdot10^{-7}\frac{V_g}{\Omega}-4.449\cdot10^{-7} A\).}
+    \label{fig:ex1}
+\end{figure}
+Fig.~\ref{fig:ex1} shows \(I_{ds}\) as a function of \(V_g\) for nMOS and pMOS transistors with \(V_{ds} = 50\) mV.
+For the pMOS transistor, current measurements for \(V_g < 1\) V are not shown because the K236 measured negative
+values. This was because we placed the K236 between the supply rail and the drain terminal of the pMOS in order to
+apply a small negative voltage. We also tried placing the K236 between ground and the drain terminal, in this case
+we would measure very small positive currents below saturation as expected, however the currents measured above threshold
+were far too small. Therefore we believe that the data displayed in this report is the most fitting.
 
+From the fits we extract the \(\beta\) and \(V_T\) parameters according to the equation for current in the triode region
+\begin{equation*}
+    I_{ds} = \beta V_{ds} \left(V_g-V_T\right)
+\end{equation*}
+
+Finding
+
+\begin{align*}
+    \beta_{nMOS} &= 5.1521\cdot 10^{-5} \frac{1}{\Omega V} \quad V_{TnMOS} = 0.3832 V \\
+    \beta_{pMOS} &= 1.5028\cdot 10^{-5} \frac{1}{\Omega V} \quad V_{TpMOS} = 0.5921 V
+\end{align*}
+
+It is obvious that the fits are not very accurate. There is systematic variation in the \(\beta\) parameter
+caused by variation in the electron mobility \(\mu\). This must be the case as it is the only parameter in the
+definition of \(\beta\) which can change, since
+\begin{equation*}
+    \beta = \mu C_{ox} \frac{W}{L}
+\end{equation*}
+Inspecting the graph, we find more fitting values of \(V_T\) to be
+\begin{equation*}
+    V_{TnMOS} = 0.65 V \quad V_{TpMOS} = 1.05 V
+\end{equation*}
+\begin{figure}
+    \center
+    \includegraphics{extra.eps}
+    \caption{Mobility as a function of \(V_g\) for \(V_ds = 50\) mV. For the pMOS transistor, the larger outlier indicates the
+    gate voltage at which the measured current switched from negative to positive. We consider this to be a measurement artefact and it should
+be ignored.}
+    \label{fig:extra}
+\end{figure}
+\subsection{Mobility}
+The carrier mobilities \(\mu_n\) and \(\mu_p\) of the nMOS and pMOS transistors can be seen in \reffig{fig:extra}. 
+The mobility starts to decrease because the applied gate voltage results in an electric field orthogonal to the 
+channel, which will pull the carriers towards the oxide where they will collide. Before the peak mobility level is reached,
+applying a higher gate voltage results in a growth in the amount of carriers in the channel which increases mobility
+more than the oxide collisions reduce it. The peak is reached when both effects are equal.
+
+Ignoring the large outlier for the pMOS well-type transistor, we find the peak mobilities
+\begin{equation*}
+    \mu_{np} = 578.7 \frac{cm^2}{V s} \quad \mu_{pp} = 192.6 \frac{cm^2}{V s}
+\end{equation*}
+Resulting in a relative difference in peak mobility of
+\begin{equation*}
+    \frac{\mu_{np}}{\mu_{pp}} = 3.00
+\end{equation*}
+Which 20\% higher than the expected value of 2.5.
+
+The peak mobilities are less than half of the bulk mobilities for electrons and holes. However, the bulk mobilities are 
+given for majority carriers, and the peak mobilities we observe are for the carriers in the inversion layer which are 
+minority carriers in the bulk, but majority carriers in the inversion layer.
+\section{Experiment 2: Drain current in the saturation region}
+\begin{figure}[!htb]
+    \center
+    \includegraphics{ex2.eps}
+    \caption{Experiment 2: \(\sqrt{I_{ds}}\) as a function of \(V_g\) for \(V_{ds} = 5\) V. Lines are fit to points visibly above the
+        x-axis. The fitted lines have equations \(\sqrt{I_{pMOS}} = 2.648\cdot10^{-3} \frac{V_g}{\sqrt{\Omega V}} - 2.089\cdot10^{-3} \sqrt{A}\) and 
+    \(\sqrt{I_{nMOS}} = 4.683\cdot10^{-3} \frac{V_g}{\sqrt{\Omega V}} - 2.469\cdot10^{-3}\sqrt{A}\).}
+    \label{fig:ex2}
+\end{figure}
+The current through the transistors in saturation is shown in \reffig{fig:ex2}. From the linear fits we extrapolate
+The \(\beta\) and \(V_T\) parameters according to the equation for current in saturation mode.
+
+\begin{equation*}
+    I_{ds} = \frac{\beta}{2}\left(V_g-V_T\right)
+\end{equation*}
+
+Finding
+
+\begin{align*}
+    \beta_{nMOS} &= 4.3861\cdot 10^{-5} \frac{1}{\Omega V} \quad V_{TnMOS} = 0.5272 V \\
+    \beta_{pMOS} &= 1.4028\cdot 10^{-5} \frac{1}{\Omega V} \quad V_{TpMOS} = 0.7886 V
+\end{align*}
+
+The \(\beta\) values are similar to the ones obtained in the triode region, but the threshold values
+are significantly different. Looking at the fitted lines, it is again immediately obvious that the 
+extrapolated values for \(V_T\) are too low, just like in experiment 1.
+
+We also tried fitting a quadratic function to the non-square root current. The quadratic fit is slightly better
+in terms of mean error and residual error, however the difference is extremely small.
+
+\section{Experiment 3: Drain characteristics of a single transistor at different saturation currents}
+\begin{figure}[!htb]
+    \center
+    \includegraphics{ex3.eps}
+    \caption{Experiment 3: \(I_{ds}\) versus \(V_{ds}\) in a 32/8 nMOS transistor, for 11 different values of \(V_g\) from 0.2 V to 2.2 V in steps of 0.2 V. 
+    Lines are drawn between measurement points to help distinquish the curves from each other.}
+    \label{fig:ex3}
+\end{figure}
+\begin{figure}[!htb]
+    \center
+    \includegraphics{ex3-2.eps}
+    \caption{Experiment 3: The data shown in \reffig{fig:ex3}, but normalized and with lines fitted to points between \(V_{ds} = 1.8\) V and \(V_{ds} = 4\) V in order to find the Early voltage.
+    The x-axis intercept is far behind the y-axis.}
+    \label{fig:ex3-2}
+\end{figure}
+\begin{figure}[!htb]
+    \center
+    \includegraphics{ex3-3.eps}
+    \caption{Experiment 3: The extrapolated Early voltage versus the extrapolated base saturation current.}
+    \label{fig:ex3-3}
+\end{figure}
+Fig.~\ref{fig:ex3} shows the transistor current as a function of \(V_{ds}\) for several different values of \(V_g\). In Fig.~\ref{fig:ex3-2}, lines have been
+fit to the saturation region of the currents. In Fig.~\ref{fig:ex3-3} the x-intercept of these lines is plotted against the y-intercept. These intercept
+values are the Early voltage and \(I_{dsat}\) currents respectively. 
+
+The Early voltage can be seen to not be constant. If we ignore the significant outlier, which is likely due to measurement error, the Early voltage increases
+slightly with \(I_{dsat}\) and then drops rapidly. The value of the Early voltage is affected by the increase in saturation current when the gate voltage is increased,
+as well as the increased slope of the current versus \(V_{ds}\) when there are more carriers in the channel for higher \(V_g\). If the slope of the 
+current in saturation vs. \(V_{ds}\) grows faster than the increase in base saturation current, \(I_{dsat}\), then the Early voltage will drop, while it
+will obviously rise if the opposite is true.
+
+Therefore we can see from Fig.~\ref{fig:ex3-3} that the base saturation current increases faster than the slope while the Early voltage is going up, 
+after which the Early voltage reaches a maximum and the base current begins to grow more slowly than the saturation current slope. This could be
+caused by the interplay of channel length modulation by \(V_{ds}\) and \(V_g\). For lower gate voltages the pinchoff region will grow more quickly and
+reduce the effective length of the channel, which increases current.
 
 \end{document}
