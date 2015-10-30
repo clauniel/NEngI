@@ -8,7 +8,7 @@
 \newpage
 \section{Experiment 1}
 
-We measured the dependence of the differential pair currents \(I_1\) and \(I_2\) on the differential input voltage \(\delta V\). The results can be seen in \reffig{fig:ex1}. The linear fits have been done with the values of the currents for \(-0.04 \le V_1-V_2 \le 0.04\), where they present a stronger linearity. The equations are
+We measured the dependence of the differential pair currents \(I_1\) and \(I_2\) on the differential input voltage \(\delta V\). The results can be seen in \reffig{fig:ex1}. The linear fits have been done with the values of the currents for \(-0.04 \le V_1-V_2 \le 0.04\), where they present a stronger linearity. The equations for the fits are
 \begin{align*}
 &I_1  = 1.414\cdot10^{-7}(V_1-V_2 )+1.23\cdot10^{-8} \\
 &I_2  = -1.406\cdot10^{-7}(V_1-V_2 )+1.18\cdot10^{-8} \\
@@ -16,21 +16,21 @@ We measured the dependence of the differential pair currents \(I_1\) and \(I_2\)
 &I_1-I_2  = 2.821\cdot10^{-7}(V_1-V_2 )+5\cdot10^{-10}
 \end{align*}
 
-From these equations we calculate the offset voltage that makes \(I_1=I_2\) as \(-1.8 mV\). \\
+From these equations we calculate the offset voltage that makes \(I_1=I_2\) as \(-1.8 mV\). 
 
 As shown in exercise 5b of the pre-lab, the slope of \(I_1-I_2\) is
 \begin{equation*}
 g_m = \frac{dI_{out}}{dV_{in}} = \frac{I_b\kappa}{2U_T}
 \end{equation*}
 %
-Assuming that the currents change linearly between 0 and \(I_b\), we can approximate the voltage range in which there is a linear behaviour
+Assuming that the currents change linearly between 0 and \(I_b\), we can approximate the voltage range in which the currents change linearly
 \begin{equation*}
 \Delta V_{linear} \cdot g_m = I_b
 \end{equation*}
 \begin{equation*}
 \Delta V_{linear} = \frac{I_b}{g_m}=\frac{2U_T}{\kappa}
 \end{equation*}
-We can see that the linear range is proportional to the thermal voltage, \(U_T\).\\
+We can see that the linear range is proportional to the thermal voltage, \(U_T\).
 
 \begin{figure}
     \center
@@ -82,10 +82,91 @@ According to the specified widths and lengths of the transistors, \(r\) is suppo
 I_{out} = \frac{5}{9}I_b=0.56I_b
 \end{equation*}
 However, we find \(I_{out}\) to be \(0.73I_b\).
-If we now use \(r=10.8\) as obtained from the non-linear fit, we get the correct value \(I_{out}=0.73I_b\). \\
+If we now use \(r=10.8\) as obtained from the non-linear fit, we get the correct value \(I_{out}=0.73I_b\). 
 
-The discrepancy in the value of \(r\), which makes \(I_{out}\) larger than expected, can be caused by a short-channel effect. Because the transistors in the middle branch are shorter than those in the side branches and their \(Vds\) is large, they will be more affected by the Early effect and more current will flow through them. 
+The discrepancy in the value of \(r\), which makes \(I_{out}\) larger than expected, can be caused by a short-channel effect. Because the transistors in the middle branch are shorter than those in the side branches and their \(Vds\) is large, they will be more affected by the Early effect and more current will flow through them.\\ 
+
+\section{Experiment 3}
+Here we measure the transconductance amplifier output current as a function of the input differential voltage for the circuit operating in subthreshold and above threshold. The results for the subthreshold case are shown in \reffig{fig:ex3a}. 
+The equation of the linear fit for \(V_b=0.6\) and \(-0.06 \le V_1-V_2 \le 0.06\) is given by
+\begin{equation*}
+I_{out}= 1.014\cdot10^{-6}(V_1-V_2)+4.4\cdot10^{-9}
+\end{equation*}
+
+The slope of the fit should correspond to \(g_m=\frac{I_b\kappa}{2U_T}\) which is approximately \(g_m=\frac{0.9\cdot10^{-7}\cdot0.7}{2\cdot0.025}=1.3\cdot10^{-6}\).
+
+\begin{figure}[!htb]
+	\center
+	\includegraphics{q3a.eps}
+	\caption{Output current, \(I_{out}\), as a function of the input voltage in a transconductance amplifier operating in sub-threshold for two values of \(V_b\) and linear fits for \(-0.06 \le V_1-V_2 \le 0.06\).}
+	\label{fig:ex3a}
+\end{figure}
+
+We can observe that \(|I_{out}|\) is larger for \(V_1\gg V_2\) than for \(V_2\gg V_1\) although ideally they should be identical in both cases and equal to \(I_b\). When \(V_2\gg V_1\), \(M_1\) should be cutt off and \(M_2\) should conduct \(I_b\), therefore, the saturation value of the current in this case should indeed be \(-I_b\). From this we deduce that it is the value of the current for \(V_1\gg V_2\) which is larger than expected. This would be explained by the current mirror having  a gain larger than one due to a mismatch in the transistor sizes. 
+
+From the plot we also can observe that there is an offset in the input voltage. This can be caused by different non-idealities. One of them is the one just mentioned above; since the current mirror is making a larger copy, in order to have \(I_{out}=0\) we need to have \(V_1<V_2\). Another way of saying this is that when \(V_1=V_2\), we will have a positive value of \(I_{out}\) which is what we get from the linear fit. 
+
+Another non-ideality that can cause an offset voltage is a mismatch between the transistors of the differential pair. Finally this also can be due to the Early effect and the fact that \(V_{ds}\) is different for both transistors of the pair. 
+
+These last two phenomena will cause an offset voltage but not a difference in the saturation values of \(|I_{out}|\) which allows us to distinguish wether the problem is located in the differential pair or in the current mirror. 
 
 
+\begin{figure}[!htb]
+	\center
+	\includegraphics{q3b.eps}
+	\caption{Output current, \(I_{out}\), as a function of the input voltage in a transconductance amplifier operating above threshold and a linear fit for \(-0.06 \le V_1-V_2 \le 0.06\).}
+	\label{fig:ex3b}
+\end{figure}
+
+
+\section{Experiment 4}
+
+We measured the open-circuit volgate gain of the amplifier. The results are shown in Fig. 5. We obtained a gain of \(626\) in the high-gain region as can be seen in the equation for the fit
+\begin{equation*}
+V_{out}=626.13(V_1-V_2)+0.75
+\end{equation*}
+
+\begin{figure}[!htb]
+	\center
+	\includegraphics{q4a.eps}
+	\caption{Output voltage, \(V_{out}\), as a function of the input voltage in a transconductance amplifier operating in open circuit and in subthreshold. The line corresponds to a linear fit in the high-gain region.}
+	\label{fig:ex4a}
+\end{figure}
+
+\begin{figure}[!htb]
+	\center
+	\includegraphics{q4b.eps}
+	\caption{Output current, \(I_{out}\), as a function of the output voltage in a transconductance amplifier operating in subthreshold and a fit in the linear region.} .
+	\label{fig:ex4b}
+\end{figure}
+
+We then measured the output current of the amplifier as a function of the output voltage to calculate the output conductance. The experimental results can be seen in Fig 6. and the equation for the fit is given by
+\begin{equation*}
+I_{out}=1.829\cdot10^{-9}V_{out}-6.429\cdot10-^{9}
+\end{equation*}
+The output conductance is the slope of the fit, \(g_d = 1.829\cdot10^{-9}\). 
+
+With this value of \(g_d\) and the value of \(g_m\) calculated in experiment 3,  we can estimate the voltage gain as \(A=\frac{g_m}{g_d}\) and compare it with the measured one. 
+\begin{equation*}
+A=\frac{g_m}{g_d}=\frac{1.014\cdot10^{-6}}{1.829\cdot10^{-9}}=554.3
+\end{equation*}
+
+This estimated voltage gain presents a \(11.5\%\) error.
+\begin{equation*}
+e=\frac{554.3-626.1}{626.1}\cdot100=11.46\%
+\end{equation*}
+
+Finally, we measured the voltage gain of the wide-range transconductance amplifier. The results are shown in \reffig{fig:ex4c} and the equation for the fit is
+\begin{equation*}
+V_{out}=3996.6(V_1-V_2)-28.69
+\end{equation*}
+Compared to the 5-transistors amplifier, we observe a wider range in which there is linear amplification and a higher gain. The difference in the gain is due to the output transistors having \(W/L=3/58\) instead of \(6/6\). The longer the transistors, the smaller the Early effect and thus the higher the gain. 
+
+\begin{figure}
+	\center
+	\includegraphics{q4c.eps}
+	\caption{Output voltage as a function of the input voltage in the wide-range transconductance amplifier and a fit in the linear region.} .
+	\label{fig:ex4c}
+\end{figure}
 
 \end{document}
