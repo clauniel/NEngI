@@ -8,13 +8,11 @@
 \newpage
 \section{Post-Lab}
 \subsection{Zero output current at non-zero input voltage with fixed output voltage.}
-Assuming that the question pertains to the simple transconductance amplifier, this effect
-is caused by the output voltage affecting the operating point on the saturation curve of the
-output transistor. Because of the Early voltage, the output transistor will be able to handle
-slightly more or less current than the non-output transistor when its drain voltage is fixed.
+The offset voltage is a result of transistor mismatch. Because the transistor mismatch
+occurs in the doping concentration or W/L ratio, the error is in the base of the exponential
+governing the transistor current. Therefore a change in drain voltage will also change
+the offset voltage.
 
-This also means that the non-zero input voltage, at which zero output current is observed, will
-change with the fixed output voltage.
 \subsection{nMOS and pMOS simple transconductance amplifiers}
 \begin{figure}
     \begin{subfigure}{0.5\textwidth}
@@ -80,4 +78,6 @@ effect is worsened in the wide-range amplifier because it has a series of 3 curr
 
 On the other hand, the wide-range transconductance amplifier can handle a higher dynamic range of inputs, and when configured in the open
 circuit configuration it does not behave like a source follower for negative differential voltages before applying a large gain.
+Additionally, the open-loop gain of the wide-range transconductance amplifier can be changed by modifying the dimensions of the 
+output transistors
 \end{document}

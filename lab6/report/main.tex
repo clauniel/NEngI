@@ -6,4 +6,53 @@
 \begin{document}
 \input{frontpage}
 \newpage
+\begin{figure}
+    \center
+    \includegraphics{ex1.eps}
+    \caption{Competition between cell 13 and 14 in the WTA network. When the input current to cell 13 is larger than that to cell 14, cell 13 produces all the output current, and
+        vice-verse for cell 14. 
+    The artefacts on the right hand side occur when scanning cell 26 and 1.}
+    \label{fig:ex1}
+\end{figure}
+\section{Experiment 1: Observing Behaviour of the WTA}
+We connected the sync input to channel 2 of the oscilloscope and used triggered off of it with a holdoff of 48ms in order to trigger once on every pass through the
+scan chain. This way we were able to obtain the waveforms shown in Fig.~\ref{fig:ex1} where the waveform for a winning cell 13 is overlaid with a winning cell 14.
+The cell with the highest input voltage loses because the input voltage is applied to the gate of a pFET, meaning that a higher voltage leads to a lower input current.
+We cannot explain the glitches observable to the right. However, they interestingly appear at the border cells numbered 26 and 1.
+\begin{figure}
+    \center
+    \includegraphics{ex2-1.eps}
+    \caption{Hysteresis in the HWTA circuit. \(\Delta V\) starts out negative and then moves to positive values before going back to negative values.
+    \(V_{gain}=5\) V which results in a small hysteretic loop.}
+    \label{fig:ex2-1}
+\end{figure}
+\section{Experiment 2: Two Cell Competition}
+We measured the current through cell 13 as a function of differential voltage between cell 13 and 14 using 4.2 V as the bias input voltage.
+Fig.~\ref{fig:ex2-1} shows the current for \(V_{gain}=5\) V, Fig.~\ref{fig:ex2-2} for \(V_{gain}=4.5\) V and Fig.~\ref{fig:ex2-3} for \(V_{gain}=4\) V.
+\(V_b\) was kept at 0.85 V throughout the experiment.
+\begin{figure}
+    \center
+    \includegraphics{ex2-2.eps}
+    \caption{Hysteresis in the HWTA circuit for \(V_{gain}=4.5\) V. Here the hysteretic loop is much larger than for \(V_{gain} = 5\) V.}
+    \label{fig:ex2-2}
+\end{figure}
+\begin{figure}
+    \center
+    \includegraphics{ex2-3.eps}
+    \caption{HWTA current through cell 13 with \(V_{gain}=4.0\) V. No hysteresis is observed with this gain voltage. The gain of the linear part of the slope is
+    3062.}
+    \label{fig:ex2-3}
+\end{figure}
+
+Interestingly, the output current does not immediately max out for the case where \(V_{gain}=5 \) V, but instead continues to rise linearly
+as \(\Delta V\) is increased for the range that we measured. The width of the hysteresis loop is also larger for \(V_{gain}=4.5\) V which should not happen.
+The gain voltage parameter is the source voltage to the pMOS transistor which delivers the excitatory feedback to the winning node. The larger this value becomes,
+the wider the hysteresis loop should become. This is because the excitatory feedback acts as a secondary input current which aids the winning node in succeeding and keeping
+the winning spot.
+
+When the gain voltage parameter is decreased sufficiently such that the width of the hysteresis loop effectively disappears, we are left with the standard WTA circuit
+which has a high current gain in a very small region of operation as the node switches from losing to winning or vice-versa. The gain of the high gain part of the
+curve is 3062. This is much less than the number we derived in the pre-lab where we assumed \(\kappa = 0.8\) and \(V_E \simeq 450\) V. Of course, this Early voltage is
+much too large as we measured in a previous lab that the Early voltages for the 16 micron transistors was around 140 V. With a gain of 3062, the output transistors
+in the WTA circuit have an Early voltage of aroun 100 volts assuming \(\kappa = 0.8\) and \(U_T = 26\) mV.
 \end{document}

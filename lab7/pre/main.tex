@@ -1,0 +1,116 @@
+\input{pre}
+\tikzset{rrail/.style={rground,yscale=-1}}
+\begin{document}
+\input{frontpage}
+\newpage
+\section{Pre-Lab}
+\subsection{CMOS Capacitors}
+In CMOS technology, capacitors can be constructed by depositing an \(\mathrm{SiO_2}\) layer on top of a wire and
+adding a wire to the top of the layer. This effective creates a capacitor with the same thickness as the oxide layer.
+Another method is to use a normal well MOS transistor without source and drain. The bulk and gate terminals then
+act as the terminals of a capacitor. The problem with this method is that the capacitance of this type of capacitor 
+will change with the applied voltage because a depletion layer will be formed in the bulk substrate.
+
+The relative permittivity for \(\mathrm{SiO_2}\) is 3.9 (Wilk, Wallace, Anthony 2001). A 10 nm thick capacitor with this dieletric
+material will therefore have a capacitance per area of 
+\begin{equation*}
+    \frac{C}{A} = \frac{3.9\varepsilon_0}{10nm} = 3.45 \frac{\mathrm{fF}}{\mu\mathrm{m}}
+\end{equation*}
+
+For the lipid bilayer, the permittivity varies with thicking. For a thickness of 5 nm the relative permittivity is between 1.74 and 1.51 (Ohki, Shinpei 1967),
+and the layer will therefore have the capacitance between
+\begin{equation*}
+    \frac{C}{A} = \frac{1.74\varepsilon_0}{5\mathrm{nm}} = 3.08 \frac{\mathrm{fF}}{\mu\mathrm{m}}
+\end{equation*}
+and
+\begin{equation*}
+    \frac{C}{A} = \frac{1.51\varepsilon_0}{5\mathrm{nm}} = 2.67 \frac{\mathrm{fF}}{\mu\mathrm{m}}
+\end{equation*}
+
+\subsection{Follower-Integrator Transfer Function}
+The output current of the transconductance amplifier is
+\begin{equation*}
+    I_{out} = I_b\tanh\left(\frac{\kappa \left( V_+ - V_- \right)}{2U_T}\right)
+\end{equation*}
+Which in the case of the follower-integrator circuit is equivalent to 
+\begin{equation*}
+    I_{out} = I_b\tanh\left(\frac{\kappa \left( V_{in} - V_{out} \right)}{2U_T}\right)
+\end{equation*}
+We assume that we are operating in the linear range where \(\tanh(x) \simeq x\) so that
+\begin{equation*}
+    I_{out} = \frac{\kappa I_b}{2U_T}\left(V_{in} - V_{out}\right) = G\left(V_{in} - V_{out}\right)
+\end{equation*}
+Where \(G\) is the transconductance of the amplifier.
+
+Since no current flows into the input terminals of the transconductance amplifier, all of the
+output current flows through the capacitor, therefore
+\begin{equation*}
+    I_{out} = C\frac{dV_{out}}{dt}
+\end{equation*}
+Equation the above expressions
+\begin{align*}
+    &C\frac{dV_{out}}{dt} = G\left(V_{in} - V_{out}\right) \\
+    &                     \Updownarrow \\
+    &\frac{C}{G}\frac{dV_{out}}{dt} + V_{out} =  V_{in} \\
+\end{align*}
+Replacing \(\tau = \frac{C}{G}\) and transforming to the Laplace domain this becomes
+\begin{align*}
+    &V_{out}\left( s\tau + 1 \right) = V_{in} \\
+    &\Downarrow  \\
+    &H(s) = \frac{V_{out}}{V_{in}} = \frac{1}{1+s\tau}
+\end{align*}
+
+\subsection{Follower-Differentiator Transfer Function}
+For the follower-differentiator, the time-domain equations are
+\begin{align*}
+    &C\frac{d}{dt}\left(V_{in}-V_{out}\right) = GV_{out} \\
+    &\Updownarrow \\
+    &\tau \frac{dV_{out}}{dt} + V_{out} = \tau \frac{dV_{in}}{dt} 
+\end{align*}
+And by transformation to the Laplace-domain
+\begin{align*}
+    &V_{out}\left(s\tau + 1\right) = s\tau V_{in} \\
+    &\Downarrow \\
+    &H(s) = \frac{V_{out}}{V_{in}} = \frac{s\tau}{1+s\tau}
+\end{align*}
+
+\subsection{Half-Power Frequency}
+Since the ideal capacitor is a component having only imaginary resistance, reactance, the \(\sigma\) in \(s=\sigma+j\omega\) is \(0\) and so
+\begin{equation*}
+    H(j\omega) = \frac{1}{1+j\tau \omega}
+\end{equation*}
+For the follower-integrator.
+
+The half-power frequency is when \(|H(jw)|=\frac{1}{\sqrt{2}}\) because power scales quadratically with voltage, solving for \(\omega\) we have
+\begin{align*}
+    |H(j\omega)| = \frac{1}{|1+j\tau\omega|} &= \frac{1}{\sqrt{1^2+\tau^2\omega^2}} = \frac{1}{\sqrt{2}} \\
+    &\Downarrow \\
+    &\omega = \frac{1}{\tau}
+\end{align*}
+As \(\omega = 2\pi f\) the half-power frequency is
+\begin{equation*}
+    f = \frac{1}{2\pi\tau}
+\end{equation*}
+
+\subsection{Comparing RC Integrators}
+The simple RC integrator consists of ideal components whose behaviour is well defined over all input ranges. When deriving the transfer function
+for the transconductance amplifier follower-integrator we assumed that we were operating in the linear range which demands that the input voltages
+are not too dissimilar. If the differential input were to become too large, the output current would become constant with respect to the differential
+input voltage. This is not consistent with the derived transfer function and essentially "breaks" the model. 
+
+When the differential input becomes too large for the circuit to handle, it is said to be slew-rate limited.
+
+\subsection{Small-Signal Model}
+The meaning of "small-signal" depends on a model of circuit operation. Typically a small-signal model describes the way a circuit behaves for 
+small-signals around an operating point, where the meaning of "small" typically depends on a linearisation of a more complex I-V relationship for
+a given component.
+
+For the transconductance amplifier, the magnitude of the differential input is the main restriction. Since we assumed that \(I_{out}=I_b\tanh\left(\frac{\kappa \Delta V}{2U_T}\right)\)
+in the derivation of the transfer function, which is only approximately true for \(2U_T<\Delta V < 2U_T\).
+The linearity criterion for the follower-integrator is
+\begin{equation*}
+    \frac{dV_{in}}{dt} < \frac{4U_T}{\tau}
+\end{equation*}
+
+The absolute magnitude of the input also matters since the current mirror transistors must be in saturation and the input transistors in sub-threshold.
+\end{document}
