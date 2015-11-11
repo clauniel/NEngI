@@ -1,0 +1,77 @@
+\input{pre}
+\tikzset{rrail/.style={rground,yscale=-1}}
+\begin{document}
+\input{frontpage}
+\newpage
+\section{Pre-Lab}
+\subsection{P-N junction diagram}
+See appended figure.
+\subsection{Generation of hole pairs}
+When a foton generates an electron-hole pair in the N-region, the electron will appear in the conduction band and
+the hole in the valence band. The electron will either move around in the N region for some time, or immediately recombine
+with the hole that was generated or some other hole. The hole will either recombine with an electron, or diffuse into
+the depletion region in which case it will be swept across to the P-region by the electric field in the depletion region.
+
+If the carrier pair is generated in the P-region, the same opportunities exist as for the case in the N-region, only 
+now the electron is the carrier that can cross the depletion region.
+
+If the pair is generated in the depletion region, the electron will be push into the N-region and the hole will be pushed
+into the P-region, by the electric field.
+
+\subsection{Shining light on an open junction}
+If we shine light on an open-circuted junction, the process described in the previous question will cause a reverse current
+to flow across the junction. Since no net current can actually flow because it is not a closed circuit, the buildup of
+charge caused by the reverse current, increases the voltage across the junction and begins to drive a forward current
+equal and opposite to the reverse current. The sign of the generated voltage is positive when measured from P to N.
+
+\subsection{Shining light on a shorted junction}
+If the junction is shorted, current can flow. When we shine light on the junction, the reverse current will therefore 
+not be balanced by an equal forward current, but flow from N to P.
+
+\subsection{I-V relationship of the photodiode}
+See appended figure for a graph of the I-V relationship with the maximum power operating point. 
+
+The optimal power point can also be analytically derived. The current through the photodiode is given by
+\begin{equation*}
+    I = I_0\left(e^{V}{U_T}-1\right)-I_{ph}
+\end{equation*}
+Where \(I_{ph}\) is the reverse current caused by phototransduction. The power is then
+\begin{equation*}
+    P = VI = VI_0\left(e^{\frac{V}{U_T}}-1\right) -VI_{ph}
+\end{equation*}
+The optimal power point is then
+\begin{equation*}
+    \frac{dP}{dV} = I_0e^{\frac{V}{U_T}}\left(V+1\right) - I_{ph} - I_0 = 0
+\end{equation*}
+Or more clearly
+\begin{equation*}
+    I_0e^{\frac{V}{U_T}}\left(\frac{V}{U_T}+1\right) = I_{ph} + I_0
+\end{equation*}
+
+\subsection{Usefulness of logarithmic sensors in perception}
+A logarithmic sensor is able to operate over a wide range of inputs because the logarithm is a compressive operation.
+Additionally, the logarithmic response allows one to use, in the case of photosensors, the ambient lighting as an 
+operating point. The result of small changes in ligthing due to objects will be encoded as small changes around this operating
+point, which allows for the creation of a small signal model.
+
+Logarithms also have the property that a ratio between two variables is turned into a difference, i.e.
+\begin{equation*}
+    \log\left(\frac{x}{y}\right) = \log(x) - \log(y)
+\end{equation*}
+Which allows one to easily work with ratios in a circuit.
+
+\subsection{The source-follower photoreceptor}
+The output voltage of the source-follower photorecepter has the following V-I relationship
+\begin{equation*}
+    V_{out} = \kappa V_b - U_T\log\left(\frac{I_{ph}}{I_0}\right)
+\end{equation*}
+Or when rewriting \(I_{ph}\) in terms of irradiance
+\begin{equation*}
+    V_{out} = \kappa V_b - U_T\log\left(\frac{\eta q\lambda P_{opt}}{I_0hc}\right)
+\end{equation*}
+The slope of the response is
+\begin{equation*}
+    \frac{dV_{out}}{dI_{ph}} = \frac{U_T}{I_{ph}}
+\end{equation*}
+
+\end{document}
