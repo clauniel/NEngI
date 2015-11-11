@@ -24,8 +24,15 @@ We built an RC circuit using a 22 kOhm resistor and 47 nF capacitor which theore
     \tau = RC = 0.1034 \mathrm{ms}
 \end{equation*}
 Fig.~\ref{fig:ex1-1} shows the input and outputs of the circuit when a 100 mV PP square wave with a frequency of 1 kHz is applied at the input around
-a DC bias voltage of 2 V. We find the actual time constant of the circuit by fitting a line to the difference between the 
-final output value and the immediate value as seen in Fig.~\ref{fig:ex1-2}. 
+a DC bias voltage of 2 V. We find the actual time constant of the circuit by fitting a line to the logarithm of the difference between the 
+final output value and the immediate value as seen in Fig.~\ref{fig:ex1-2}. This is useful because 
+\begin{equation*}
+V(t)=V_\infty(1-e^{-t/\tau})
+\end{equation*}
+and so
+\begin{equation*}
+log(V(t)-V_\infty) = -t/\tau + log(V_\infty)
+\end{equation*}
 
 We find a time constant of 0.1003 ms which is well within the tolerance of the components used to construct the circuit.
 \begin{figure}[!htb]
@@ -44,18 +51,17 @@ We find a time constant of 0.1003 ms which is well within the tolerance of the c
 \end{figure}
 \section{Time-Domain Response of Follower-Integrator}
 Fig.~\ref{fig:ex2-1} shows the output of the follow-integrator when the input is driven by a 50 mV PP square wave with a frequency of 5 kHz biased around
-2 VDC. Fig.~\ref{fig:ex2-2} shows the log of the difference between the target voltage for the output and the immediate value.
+2 V DC. Fig.~\ref{fig:ex2-2} shows the log of the difference between the target voltage for the output and the immediate value.
 The falling and rise edge time constants are found by fitting lines to these curves.
 
-We find that the rising time constant is smaller than the falling one, therefore the circuit can more quickly respond to a 
-positive differential input voltage, which indicates that the zero-current offset voltage of the transconductance amplifier is
-negative. We find that the rising time and falling time constants, respectively, are
+We find that the rising time constant is slightly smaller than the falling one
 \begin{equation*}
     \tau_r = 6.96\mu\mathrm{s} \; \tau_f = 7.45\mu\mathrm{s}
 \end{equation*}
 
-The mean of the output is higher than the mean of the output because of the non-zero offset voltage in the transconductance amplifier
-which results in a zero output current. The difference between the signal means is equal to this offset.
+This means that the current flows out of the amplifier and into the capacitor faster than it does in the opposite direction. A mismatch in the differential pair would only produce an offset between input and output, but the slope of the \(I_{out}\) curve around the operation point and therefore the input and output currents would be equal. 
+Instead, the effect must be caused by a mismatch in the current mirror so that it makes a larger copy of the current. As we discussed in Lab 4, this makes the positive saturation value of \(I_{out}\) larger than the negative one, therefore making the slope of the \(I_{out}\) curve larger for a wider range in the positive part than in the negative one. This in turns explains why the current flows more quickly in the outward (positive) direction. 
+
 
 \section{Frequency-Domain Response of the Follower-Integrator}
 \begin{figure}
@@ -64,8 +70,8 @@ which results in a zero output current. The difference between the signal means 
     \caption{Frequency response of the follower integrator and a theoretical ideal first-order low-pass filter. The cutoff frequency is 23.5 kHz.}
     \label{fig:ex3-1}
 \end{figure}
-Fig.~\ref{fig:ex3-1} shows our measurements of the frequency response for the follower-integrator. We first honed in on the cutoff frequency manually
-and after this took logarithmically spaced measurements of the input-output magnitude. The line is the frequency response for a first order low-pass
+Fig.~\ref{fig:ex3-1} shows our measurements of the frequency response for the follower-integrator. We first honed in on the cutoff frequency manually by finding the frequency for which the output amplitude drops by \(1/\sqrt 2\). 
+After this, took logarithmically spaced measurements of the input-output magnitude. The line is the frequency response for a first order low-pass
 filter with a cutoff frequency of 23.5 kHz. The measurements drop off more quickly, indicating some second order capacitive effects in the circuit,
 stemming from parasitic capacitances and inductances in the breadbord and connecting wires.
 
@@ -95,9 +101,9 @@ And their ratio
 \begin{equation*}
     \frac{\tau_r}{\tau_f} = 0.848
 \end{equation*}
-The difference is caused by the same effect as the offset voltage discussed earlier, the mismatch of the input transistors and current mirror transistors.
-Because of the non-zero offset, a positive differential input will in this case result in a smaller magnitude of positive output current, than the corresponding
-magnitude of negative output current when the differential input is negative.
+
+Here we see very clearly that the positive and negative saturation values of \(I_{out}\) are different as discussed in the section 2. 
+
 \subsection{DC level manipulation}
 We fixed the bias transistor voltage to 0.75 V and observed the circuit as we changed the DC level of the input from 2 V to 0.25 V in steps. Figs.~\ref{fig:ex4-2} through
 \ref{fig:ex4-4} show the time-domain relationship between the input and output voltages measured at the transconductance amplifier terminals for several input bias voltages.
@@ -131,7 +137,7 @@ with the small drive.
 Fig.~\ref{fig:ex4-4} shows the result of biasing both input transistors in the triode region and applying a signal that does not cause either of them to enter
 saturation. The output current is now a triangle wave because of the constant current charging and discharging the capacitor.
 
-\section{How Slow can You Integrate?}
+\section{How Slow Can You Integrate?}
 \begin{figure}
     \center
     \includegraphics{ex5-step.eps}
