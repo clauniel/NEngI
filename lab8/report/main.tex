@@ -6,151 +6,55 @@
 \begin{document}
 \input{frontpage}
 \newpage
-\begin{figure}[!htb]
-    \center
-    \includegraphics{ex1-step.eps}
-    \caption{Square wave input to the RC circuit and the output signal. The time constant is shown for the falling edge.}
-    \label{fig:ex1-1}
-\end{figure}
-\begin{figure}[!htb]
-    \center
-    \includegraphics{ex1-log.eps}
-    \caption{The difference between the final and immediate values of the output voltage during a discharge with a line fit to find \(\tau\).}
-    \label{fig:ex1-2}
-\end{figure}
-\section{The RC Integrator}
-We built an RC circuit using a 22 kOhm resistor and 47 nF capacitor which theoretically yields a time constant of
-\begin{equation*}
-    \tau = RC = 0.1034 \mathrm{ms}
-\end{equation*}
-Fig.~\ref{fig:ex1-1} shows the input and outputs of the circuit when a 100 mV PP square wave with a frequency of 1 kHz is applied at the input around
-a DC bias voltage of 2 V. We find the actual time constant of the circuit by fitting a line to the difference between the 
-final output value and the immediate value as seen in Fig.~\ref{fig:ex1-2}. 
-
-We find a time constant of 0.1003 ms which is well within the tolerance of the components used to construct the circuit.
-\begin{figure}[!htb]
-    \center
-    \includegraphics{ex2-step.eps}
-    \caption{Square wave input to the RC circuit and the output signal. The output reaches a higher voltage than the input square wave
-    because of the non-zero offset voltage for 0 output current.}
-    \label{fig:ex2-1}
-\end{figure}
-\begin{figure}[!htb]
-    \center
-    \includegraphics{ex2-log.eps}
-    \caption{The difference between the final and immediate values of the output voltage during charge and discharge of the output capacitor. 
-    Lines are fit to the rising and falling edges to find \(\tau_r\) and \(\tau_f\) respectively.}
-    \label{fig:ex2-2}
-\end{figure}
-\section{Time-Domain Response of Follower-Integrator}
-Fig.~\ref{fig:ex2-1} shows the output of the follow-integrator when the input is driven by a 50 mV PP square wave with a frequency of 5 kHz biased around
-2 VDC. Fig.~\ref{fig:ex2-2} shows the log of the difference between the target voltage for the output and the immediate value.
-The falling and rise edge time constants are found by fitting lines to these curves.
-
-We find that the rising time constant is smaller than the falling one, therefore the circuit can more quickly respond to a 
-positive differential input voltage, which indicates that the zero-current offset voltage of the transconductance amplifier is
-negative. We find that the rising time and falling time constants, respectively, are
-\begin{equation*}
-    \tau_r = 6.96\mu\mathrm{s} \; \tau_f = 7.45\mu\mathrm{s}
-\end{equation*}
-
-The mean of the output is higher than the mean of the output because of the non-zero offset voltage in the transconductance amplifier
-which results in a zero output current. The difference between the signal means is equal to this offset.
-
-\section{Frequency-Domain Response of the Follower-Integrator}
 \begin{figure}
     \center
-    \includegraphics{ex3-freqresp.eps}
-    \caption{Frequency response of the follower integrator and a theoretical ideal first-order low-pass filter. The cutoff frequency is 23.5 kHz.}
-    \label{fig:ex3-1}
+    \includegraphics{srcfoll.eps}
+    \caption{Output voltage as a function of relative light intensity for the source-follower receptor. Strips 1 through 4
+    are decade light intensity filters, numbered in descending opacity. The dark current line is the maximum output voltage since
+the always-present dark current fixes the voltage to this value.}
+    \label{fig:srcfoll}
 \end{figure}
-Fig.~\ref{fig:ex3-1} shows our measurements of the frequency response for the follower-integrator. We first honed in on the cutoff frequency manually
-and after this took logarithmically spaced measurements of the input-output magnitude. The line is the frequency response for a first order low-pass
-filter with a cutoff frequency of 23.5 kHz. The measurements drop off more quickly, indicating some second order capacitive effects in the circuit,
-stemming from parasitic capacitances and inductances in the breadbord and connecting wires.
-
-A cutoff frequency of 23.5 kHz, implies that the time constant of the circuit is
+\section{Quantum Efficiency of a Photodiode}
+Using the photometer we measured the following irradiances for the red and green LEDs
 \begin{equation*}
-    \tau = \frac{1}{2\pi F_0} = 6.77 \mu\mathrm{s}
+    E_{red} = 2.52 \frac{\mathrm{W}}{\mathrm{m}^2} \; ,\; E_{green} = 2.22 \frac{\mathrm{W}}{\mathrm{m}^2}
 \end{equation*}
-Which is slightly below the value obtained in experiment 2. However, in experiment 2, the frequency was 5 kHz, while the cutoff frequency here is 23.5 kHz which
-may influence the rise and fall times for a non-ideal circuit.
-
-\section{Large Signal Behaviour of the Follower-Integrator}
-\subsection{Slew-Rate Limiting}
-\begin{figure}
-    \center
-    \includegraphics{ex4-slew.eps}
-    \caption{Large signal input-output relation in the time domain for the follower-integrator. The dotted lines represent the limits of up and downgoing slew-rate limited operation.}
-    \label{fig:ex4-1}
-\end{figure}
-Fig.~\ref{fig:ex4-1} shows a large signal square wave applied to the follower integrator. With this input, the circuit is slew-rate limited
-and the charging of the capacitor proceeds linearly until the differential voltage is a small signal again.
-
-The slew-rate time constants for the upgoing and downgoing edges are
+When applying a reverse bias across the diode of 5 V and shielding it from as much light as possible, the dark
+current is approximately
 \begin{equation*}
-    \tau_r = 97.90\mu\mathrm{s} \; \tau_f = 83.03\mu\mathrm{s}
+    I_0 = 0.0049 \mathrm{nA}
 \end{equation*}
-And their ratio 
+The reverse current through the diode when shining light on the junction using the LEDs at maximum intensity is
 \begin{equation*}
-    \frac{\tau_r}{\tau_f} = 1.18
+    I_{red} = 0.4523 \mathrm{nA} \; , \; I_{green} = 0.6282 \mathrm{nA}
 \end{equation*}
-The difference is caused by the same effect as the offset voltage discussed earlier, the mismatch of the input transistors and current mirror transistors.
-Because of the non-zero offset, a positive differential input will in this case result in a smaller magnitude of positive output current, than the corresponding
-magnitude of negative output current when the differential input is negative.
-\subsection{DC level manipulation}
-We fixed the bias transistor voltage to 0.75 V and observed the circuit as we changed the DC level of the input from 2 V to 0.25 V in steps. Figs.~\ref{fig:ex4-2} through
-\ref{fig:ex4-4} show the time-domain relationship between the input and output voltages measured at the transconductance amplifier terminals for several input bias voltages.
-\begin{figure}[!htb]
-    \center
-    \includegraphics{ex4-1.eps}
-    \caption{Input-output relationship in the time domain for a square wave input to the follower-integrator circuit with different input DC offsets.}
-    \label{fig:ex4-2}
-\end{figure}
-\begin{figure}[!htb]
-    \center
-    \includegraphics{ex4-2.eps}
-    \caption{Input-output relationship in the time domain for a square wave input to the follower-integrator circuit with different input DC offsets. Here the
-    input transistors go into the ohmic region on the downgoing flank.}
-    \label{fig:ex4-3}
-\end{figure}
-\begin{figure}[!htb]
-    \center
-    \includegraphics{ex4-3.eps}
-    \caption{Input-output relationship in the time domain for a square wave input to the follower-integrator circuit for a very low DC offset which puts both
-    input transistors in the ohmic region.}
-    \label{fig:ex4-4}
-\end{figure}
-Initially, in Fig.~\ref{fig:ex4-2}, the output still faithfully follows the input because the input transistors are still operating in saturation. However the 
-amplitude of the input and output signals go up because the input impedance changes.
-
-In Fig.~\ref{fig:ex4-3} the input bias voltage is at a point where the differential input voltage holds one transistor in saturation and one in the triode region.
-Resulting in the circuit being able to follow the upgoing edges, but not the downgoing ones because the current through the output transistors become very small
-with the small drive.
-
-Fig.~\ref{fig:ex4-4} shows the result of biasing both input transistors in the triode region and applying a signal that does not cause either of them to enter
-saturation. The output current is now a triangle wave because of the constant current charging and discharging the capacitor.
-
-\section{How Slow can You Integrate?}
-\begin{figure}
-    \center
-    \includegraphics{ex5-step.eps}
-    \caption{Square wave input to the slow follower-integrator circuit and the output signal. The output signal is smoothed using a 50-sample delay adjusted moving
-    average filter to clearly show the exponential voltage increase.}
-    \label{fig:ex5-1}
-\end{figure}
-\begin{figure}
-    \center
-    \includegraphics{ex5-log.eps}
-    \caption{The difference between the final and immediate values of the output voltage during a charge cycle with a line fit to find \(\tau = 1.7\)s.}
-    \label{fig:ex5-2}
-\end{figure}
-Fig.~\ref{fig:ex5-1} shows the time-domain response of the transconductance amplifier follower-integrator circuit with a bias voltage of 0 V read from the multimeter
-connected to the potbox, and an input bias of 2 V DC. The input is a 50 mV PP square wave. Fig.~\ref{fig:ex5-2} shows the difference between the final value of the
-output and the immediate value. From this, the time constant of the circuit is found to be
+We find the quantum efficiency as
 \begin{equation*}
-    \tau = 1.7 \mathrm{s}
+    \eta = \frac{hc I_{ph}}{q\lambda P_{opt}}
 \end{equation*}
-When the follower-integrator circuit is made very slow, the offset moves from being positive to negative, relative to the applied square wave. It also
-drops with the DC voltage.
+Where \(P_{opt}\) is the incoming optical power to the junction and \(I_{ph} = I-I_0\). \(P_{opt}\) can be calculated using the area of the junction
+which is given to be 98 square microns and the irradiance of the light source. 
+
+The quantum efficiencies for both light sources are
+\begin{equation*}
+    \eta_{red} = 3.53 \; , \; \eta_{green} = 6.29
+\end{equation*}
+These numbers are obviously not correct since the quantum efficiency is always lower than 1. Also, the quantum efficiency for red light
+is lower than that of green light, which does not make sense given that the absorbtion spectrum of silicon peaks at a wavelength of 800nm.
+Therefore the red light should have the highest quantum efficiency as photons with this wavelength have enough energy to generate electron-hole
+pairs, but not so much energy that they are immediately absorbed in the surfce of the n-region, and not so little energy that they cannot 
+generate electron-hole pairs or pass through the material entirely.
+
+\section{Source-Follower Receptor}
+We biased the source follower bias transistor at 1 V and observed that the output went close to the ground rail when shining light on the chip,
+while it hovered just below 0.7 V when we blocked as much light as possible from reaching the chip.
+
+Fig.~\ref{fig:srcfoll} shows the response of the source-follower receptor for different light intensities, relative to the maximum intensity
+we were able to produce using the green LED with no filter in place.
+
+Blocking as much light as possible so only the dark current remains results in the maximum possible output voltage. The output voltage can never
+go higher than this value, as long as the bias does not change, because of the dark current. Therefore the response of the circuit will saturate
+and this voltage for low intensities and cease to be an actual log response.
+
+
 \end{document}
