@@ -4,172 +4,35 @@
 \newcommand{\reffig}[1]{Fig.~\ref{#1}}
 
 \begin{document}
+\input{frontpage}
+\newpage
 \section{Post-Lab}
-\subsection{Continuous-time RC Integrator Frequency Range}
-\begin{figure}
-    \begin{subfigure}{0.5\textwidth}
-        \center
-        \begin{circuitikz}[american resistors, scale=1.4]\draw
-            (0,0) to[R=$R$,o-] (1,0) to[C=$C$] (1,-1) to[short,-o] (0,-1) to[open, v^>=$V_{in}$] (0,0)
-            (1,0) to[short,-o] (2,0) to[open, v^=$V_{out}$] (2,-1) to[short, o-] (1,-1)
-        ;\end{circuitikz}
-        \caption{RC low-pass filter (integrator) circuit.}
-    \end{subfigure}
-    \begin{subfigure}{0.5\textwidth}
-        \center
-        \begin{circuitikz}[american resistors, scale=1.4]\draw
-            (0,0) to[C=$C$,o-] (1,0) to[R=$R$] (1,-1) to[short,-o] (0,-1) to[open, v^>=$V_{in}$] (0,0)
-            (1,0) to[short,-o] (2,0) to[open, v^=$V_{out}$] (2,-1) to[short, o-] (1,-1)
-        ;\end{circuitikz}
-        \caption{RC high-pass filter (differentiator) circuit.}
-    \end{subfigure}
+\subsection{BDJ Cross Section}
+See appended figure.
 
-    \begin{subfigure}{0.5\textwidth}
-        \center
-        \begin{circuitikz}[american resistors, scale=1.4]\draw
-            (0,0) node[op amp] (transamp) {}
-            (transamp.down) to[short,-o] ++(0,-0.5) node[anchor=north] {$V_b$}
-            (transamp.-) to[short] ++(0,0.5) node (fback) {} to[short] (fback -| transamp.out) to[short] (transamp.out)
-            (transamp.-) to[short, *-o] ++(-1,0) node[anchor=east] {$V_{bDC}$}
-            (transamp.+) to[short, -o] ++(-1,0) node[anchor=east] {$V_{in}$}
-            (transamp.out) to[C=$C$,i=$I_{out}$] ++(0,-1) node[ground] {}
-            (transamp.out) to[short, *-o] ++(0.5,0) node[anchor=south] {$V_{out}$}
-        ;\end{circuitikz}
-        \caption{Follower-integrator (low-pass filter).}
-    \end{subfigure}
-    \begin{subfigure}{0.5\textwidth}
-        \center
-        \begin{circuitikz}[american resistors, scale=1.4]\draw
-            (0,0) node[op amp] (transamp) {}
-            (transamp.down) to[short,-o] ++(0,-0.5) node[anchor=north] {$V_b$}
-            (transamp.-) to[short] ++(0,0.5) node (fback) {} to[short, i=$I_{out}$] (fback -| transamp.out) to[short] (transamp.out)
-            (transamp.-) to[C=$C$, *-o] ++(-1,0) node[anchor=east] {$V_{in}$}
-            (transamp.+) to[short] ++(-1,0) node[ground] {}
-            (transamp.out) to[short, *-o] ++(0.5,0) node[anchor=south] {$V_{out}$}
-        ;\end{circuitikz}
-        \caption{Follower-differentiator (high-pass filter).}
-    \end{subfigure}
+\subsection{Electron-Hole Pair Generation in the BDJ}
+Electron-hole pairs generated in the substrate will either recombine,
+or the electron will diffuse into the n-well and contribute to the bottom current.
 
-    \begin{subfigure}{\textwidth}
-        \center
-        \begin{circuitikz}[american resistors, scale=1.4]\draw
-            %HP component
-            (-4,0) node[op amp] (transamp) {}
-            (transamp.down) to[short,-o] ++(0,-0.5) node[anchor=north] {$V_b$}
-            (transamp.-) to[short] ++(0,0.5) node (fback) {} to[short, i=$I_{out}$] (fback -| transamp.out) to[short] (transamp.out)
-            (transamp.-) to[C=$C1$, *-o] ++(-1,0) node[anchor=east] {$V_{in}$}
-            (transamp.+) to[short] ++(-1,0) node[ground] {}
-            (transamp.out) to[short, *-] ++(0.75,0) node (out1) {}
-            % 
-            %LP component
-            (0,0) node[op amp] (transamp) {}
-            (transamp.down) to[short,-o] ++(0,-0.5) node[anchor=north] {$V_b$}
-            (transamp.-) to[short] ++(0,0.5) node (fback) {} to[short] (fback -| transamp.out) to[short] (transamp.out)
-            (transamp.-) to[short, *-] ++(-0.5,0) node[ground] {}
-            (transamp.+) to[short] (out1 |- transamp.+) node[anchor=east] {} to[short] (out1)
-            (transamp.out) to[C=$C2$,i=$I_{out}$] ++(0,-1) node[ground] {}
-            (transamp.out) to[short, *-o] ++(0.5,0) node[anchor=south] {$V_{out}$}
-        ;\end{circuitikz}
-        \caption{Bandpass filter using two transconductance amplifiers. Note that the ground symbol does not necessarily represent 0V since that
-        would put the repsective input transistors into cutoff.}
-    \end{subfigure}
-    \caption{Circuits considered in this lab.}
-    \label{fig:1}
-\end{figure}
-The low-pass filter circuit in Fig.~\ref{fig:1}(a) is not a true integrator. However, when the voltage of the capacitor is far from the input voltage,
-the exponential part of the step response is approximately linear and the circuit therefore acts as an approximate integrator.
-For this to always be true, the input voltage must switch so quickly that the capacitor cannot fully charge or discharge.
-When a step input is applied at \(t=0\), the voltage on the capacitor is approximately linear with respect to time for 
-\begin{equation*}
-    0<t<\tau
-\end{equation*}
-Where \(\tau=RC\). Since
-\begin{equation*}
-    \tau = \frac{1}{2\pi f_0}
-\end{equation*}
-for an ideal first order low-pass filter, it follows that if
-\begin{equation*}
-    f > \frac{1}{2\pi\tau} > f_0
-\end{equation*}
-Then the output will always behave approximately linear as an integrator.
+Pairs generated in the n-well can also recombine or diffuse into a depletion region.
+Depending on which depletion region catches the hole, the pair generation will contribute to
+either the bottom or top current.
 
-For frequencies outside this range, the voltage across the capacitor will stop increasing linearly and saturate at \(V_c = V_{in}\).
+The situation for the top p-region is the same as for the substrate, except any current will 
+contribute to the top current.
 
-\subsection{Asymmetry of Slew-Rates}
-The difference in the up and downgoing slew-rates is caused by transistor mismatch in the differential pair and current mirrors of the 
-transconductance amplifier. The mismatch is always there and so one would also expect it to show up during linear operation.
+\subsection{Spectral Response of the Top and Bottom Junction}
+Intrinsic silicon has a peak quantum efficiency at about 800nm. However, these near infrared waves can
+penetrate deep into the material. Therefore one would expect that the bottom junction of the BDJ
+responds very well to long wavelengths, while the top junction absorbs the higher energy content of
+the incoming light.
 
-The mismatch causes an offset in the 0 output current and also in the minimum and maximum values of output current. With no mismatch
-the output current moves from \(-I_b\) to \(I_b\), but with mismatch slightly more current will flow for one sign of the differential 
-input voltage. This is true both in the linear and saturation regions.
+The response is sketched in the appended figures.
 
-\subsection{Asymmetry of Slew-Rates Continued}
-The DC offset of the output signal will be different from the DC offset of the input as noted, again because of the non-zero differential voltage
-offset that leads to a zero output current. 
+\subsection{Uses for Manufacturers and Drawbacks}
+Since the response of the BDJ is widened, due to the increased absorbtion of higher wavelength light,
+the BDJ can be uses as a wide-range image sensor in the visual spectrum.
 
-Because the rise and fall times are different, the output will spend more time at either the high or low extreme of its values, thereby driving
-the average up or down relative to the input. If the rise time is smaller than the fall time, the circuit will spend more time at the high
-output extreme, driving the output offset up. Conversely the output DC offset will be driven down when the fall time is smaller than the 
-rise time.
-
-\subsection{The Follower-Integrator in Above-Threshold Operation}
-Our small signal model rests on the linearisation around \(\Delta V = 0\) of the output current
-\begin{equation*}
-    I_{out} = I_b\tanh\left(\frac{\kappa\Delta V}{2U_T}\right)
-\end{equation*}
-Yielding the conductance 
-\begin{equation*}
-    g_m = \frac{\kappa I_b}{2U_T}
-\end{equation*}
-
-When the circuit is operating above threshold, the output current is given by 
-\begin{equation*}
-    I_{out} = \frac{\beta}{2}\Delta V\sqrt{\frac{4I_b}{\beta}-\Delta V^2}
-\end{equation*}
-For \(\Delta V < V_b-V_{T0}\), which keeps the square root term positive. Beyond this the current saturates.
-
-For small signals this can be linearised around \(\Delta V = 0\) to yield the conductance
-\begin{equation*}
-    g_m = \sqrt{I_b\beta}
-\end{equation*}
-The width of the linear region is now dependent on \(I_b\) and by extension \(V_b\). The slew-rate stays the same since the current
-still saturates to \(\pm I_b\). Beyond this the model is the same except for the variable linear range and change in time constants.
-
-\subsection{The Follower-Differentiator}
-The follower-differentiator and the corresponding RC circuit are shown in Fig.~\ref{fig:1}(d) and (b) respectively.
-
-For the differentiator to actually differentiate, requires that the speed with which the input changes is so low that the capacitor is
-always approximately fully charged. This way the following holds
-\begin{equation*}
-    \frac{dV_{in}}{dt} = \frac{dV_c}{dt}
-\end{equation*}
-and the circuit functions as a true differentiator.
-
-When a step input is applied to the follower-differentiator, the output voltage will approximately have reached its final value after \(4\tau\)
-and so as long as the signal changes with a frequency which is so low that
-\begin{equation*}
-    f < \frac{1}{8\pi\tau}
-\end{equation*}
-the circuit will act as a differentiator.
-
-The consequence of not obeying this requirement can be seen in the example of a step input being applied to the differentiator. Just after the step is
-applied, the output will have the same value as before the step, which is naturally not the differentiated value of the step input.
-
-\subsection{A Band-Pass Filter}
-Fig.~\ref{fig:1}(e) shows a band-pass filter constructed using two transconductance amplifiers. The high-pass filter is placed first in the 
-cascade to remove any unwanted DC offset other than the reference offset denoted by ground.
-
-The band-pass filter is constructed using identical transconductance amplifiers, so the conductances for small signals are equal. The transfer
-function of the whole filter is composed of the two individual transfer functions.
-\begin{equation*}
-    H(s) = H_{hp}(s)H_{lp}(s) = \frac{\tau_{hp}s}{1+\tau_{hp}s}\cdot\frac{1}{1+\tau_{lp}s}
-\end{equation*}
-Where
-\begin{equation*}
-    \tau_{hp} = \frac{C_1}{G} \;,\;\; \tau_{lp} = \frac{C_2}{G}
-\end{equation*}
-The cutoff frequencies will then be
-\begin{equation*}
-    f_{0l} = \frac{1}{2\pi\tau_{lp}} \;,\;\; f_{0h} = \frac{1}{2\pi\tau_{hp}}
-\end{equation*}
+Drawbacks include increased complexity of manufacturing, due to the extra well, and an increase in the dark
+current due to having two junctions in a single diode.
 \end{document}

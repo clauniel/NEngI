@@ -36,22 +36,22 @@ QE = electron_flux/incident_flux
 % strip 4 0.5615 Vout
 % strip 4 + no LED 0.6824
 figure(1)
-semilogx([1, 1e-6, 1e-7, 1e-8, 1e-9, 1e-13],[0.0121,0.3984, 0.4444, 0.5034, 0.5615,0.6824], 'k*')
+set(gcf,'units', 'centimeters', 'position', [0, 0, 8, 4], 'paperunits','centimeters','PaperPosition',[0 0 16 8]);
+set(gca,'DefaultLineLineWidth', 0.5)
+set(gca,'Fontsize',6)
+semilogx([1, 1*10^(-0.5), 1e-1, 1e-2, 1e-3, 1e-9],[0.0121,0.3984, 0.4444, 0.5034, 0.5615,0.6824], 'k*')
 hold on
-semilogx([1e-15,1e-0], [0.6824, 0.6824], 'k')
+semilogx([1e-10,1e-0], [0.6824, 0.6824], 'k')
 hold off
 ylim([0,0.8])
 text(1e-7, 0.7, 'dark current dominates', 'Interpreter', 'LaTeX')
-text(1e-5,0.4, 'strip 1 + led', 'Interpreter', 'LaTeX') 
-text(1*10^(-6.5),0.45, 'strip 2 + led', 'Interpreter', 'LaTeX')
-text(1*10^(-7.5),0.51, 'strip 3 + led', 'Interpreter', 'LaTeX')
-text(1*10^(-8.5),0.56, 'strip 4 + led', 'Interpreter', 'LaTeX')
-text(1*10^(-12.5), 0.65, 'strip 4 + no light', 'Interpreter', 'LaTeX')
-text(1*10^(-3.7), 0.02, 'no strip + led', 'Interpreter', 'LaTeX')
+text(1*10^(-2.3),0.4, 'strip 1 + led', 'Interpreter', 'LaTeX') 
+text(1*10^(-2.8),0.45, 'strip 2 + led', 'Interpreter', 'LaTeX')
+text(1*10^(-3.7),0.50, 'strip 3 + led', 'Interpreter', 'LaTeX')
+text(1*10^(-4.8),0.56, 'strip 4 + led', 'Interpreter', 'LaTeX')
+text(1*10^(-9.5), 0.65, 'strip 4 + no light', 'Interpreter', 'LaTeX')
+text(1*10^(-1.9), 0.02, 'no strip + led', 'Interpreter', 'LaTeX')
 xlabel('relative light intensity', 'Interpreter', 'LaTeX', 'Interpreter', 'LaTeX')
 ylabel('$V_{out}$ / V', 'Interpreter', 'LaTeX')
 title('Source-follower receptor output vs. light intensity', 'Interpreter', 'LaTeX')
-set(gcf,'units', 'centimeters', 'position', [0, 0, 8, 4], 'paperunits','centimeters','PaperSize',[8 4]);
-set(gca,'DefaultLineLineWidth', 0.5)
-set(gca,'Fontsize',6)
 saveas(gcf,'./figs/srcfoll','epsc')

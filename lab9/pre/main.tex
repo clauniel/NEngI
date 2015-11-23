@@ -1,0 +1,184 @@
+\input{pre}
+\tikzset{rrail/.style={rground,yscale=-1}}
+\begin{document}
+\input{frontpage}
+\newpage
+\section{Adaptive Elements}
+See appended figures.
+
+Fig.~1 Shows the circuit diagram and CMOS realisation of the tobi-element. When \(V_g > V_w\) current flows through B1 to ground
+and through the diode formed by B2 to the well side. When \(V_w > V_g\) no current flows through any of the BJTs, but instead
+through the diode-connected mosfet. 
+
+Fig.~2 Shows the I-V curev of the tobi-element. When \(V_g>V_w\) the incoming current gets lost through the BJT going to ground
+on the gate-coupled side of the mosfet. The current increases exponentially when the BJTs are operating as diodes, but saturates
+when they hit their saturation limit. In the reverse case, the difference between the incoming and outgoing current is only due
+to loss through the BJT couplings even though no current should ideally flow through them. The majority of the current goes through
+the diode-connected PMOS transistor. Therefore the absolute current is lower.
+
+\section{Photoreceptor Circuits}
+Fig.~3 shows the output voltage of the SF receptor as a function of the logarithmic of the photocurrent which is directly proportional
+to the irradiance. 
+
+For very low intensities, the dark current dominates and the output is fixed. For higher intensities the output drops off linearly
+with the log of the light intensity. For very high intensities, the bias transistor goes into the above-threshold regime and the
+current becomes a quadratic function of the output voltage so it falls off more steeply.
+
+\section{Receptor Gain}
+\subsection{Small Signal Gain of SF and Adaptive Receptor}
+In the last pre-lab we computed the gain of the SF receptor to be
+\begin{equation*}
+    A_{sf} = \frac{v_{out}}{i} = \frac{-U_T}{I_{ph}}
+\end{equation*}
+The normalised gain \(\hat{A}\) is then
+\begin{equation*}
+    \hat{A}_{sf} = -1
+\end{equation*}
+since \(I_{bg} \simeq I_{ph}\) for small signals.
+
+To compute the gain of the adaptive photoreceptor we have to consider that it is a feedback system. 
+Fig.~4 shows the general form of the feedback circuit that makes up the adaptive photoreceptor circuit as a block diagram.
+It has the general solutions
+\begin{align*}
+    & y = \frac{acx}{ab+1} \\
+    & e = \frac{-cx}{ab+1} 
+\end{align*}
+For the adaptive circuit 
+\begin{align*}
+    &y = v_{out} \\
+    &x = i \\
+    &c = \frac{U_T}{I} \\
+    &a = A_{amp} \\
+    b_{DC} = &\kappa  \; , \; b_{AC} = \kappa A_C
+\end{align*}
+The output \(v_{out}\) DC gain of a small signal \(i\) is then given by 
+\begin{align*}
+    &v_{out} = -A_{amp}\left(-\frac{U_T}{I}i - A_{amp}\kappa \right) \\
+    & \Updownarrow \\
+    &v_{out} = \frac{U_T}{I}\frac{A_{amp}}{\kappa A_{amp} + 1} \\
+    & \Updownarrow \\
+    & A_{aDC} = \frac{v_{out}}{i} =\frac{U_T}{I} \frac{A_{amp}}{\kappa A_{amp}+1} \\
+    & \Downarrow \\
+    & \hat{A}_{aDC} = \frac{A_{amp}}{\kappa A_{amp}+1}  \simeq \frac{1}{\kappa}
+\end{align*}
+Where the final step is justified because \(A_{amp}\gg 1\)
+
+When considering the transient gain from \(v_{out}\) to \(v_{fb}\), the AC
+gain of the closed loop is
+\begin{align*}
+    &v_{out} = -A_{amp}\left(-\frac{U_T}{I}i - A_{amp}\kappa A_C \right) \\
+    & \Updownarrow \\
+    &v_{out} = \frac{U_T}{I}\frac{A_{amp}}{\kappa A_C A_{amp} + 1} \\
+    & \Updownarrow \\
+    & A_a = \frac{v_{out}}{i} =\frac{U_T}{I} \frac{A_{amp}}{\kappa A_C A_{amp}+1} \\
+    & \Downarrow \\
+    & \hat{A}_a = \frac{A_{amp}}{\kappa A_C A_{amp}+1}  \simeq \frac{1}{\kappa A_C}
+\end{align*}
+Where \(A_C\) is given by 
+\begin{equation*}
+    A_C = \frac{C_2}{C_1+C_2}
+\end{equation*}
+Meaning that for \(C_1 = 10C_2\)
+\begin{equation*}
+    \hat{A}_a = \frac{11}{\kappa}
+\end{equation*}
+
+
+\subsection{Logarithmic Properties in Small-Signal Gain}
+If 
+\begin{equation*}
+    y = \ln(x)
+\end{equation*}
+then
+\begin{align*}
+    &\frac{dy}{dx} = \frac{1}{x} \\
+    &\Updownarrow \\
+    &dy = \frac{dx}{x}
+\end{align*}
+Which in the case of circuits can be interpreted as a change around an operating point, which is
+relative to the operating point itself. This shows up in the gains derived above, but disappears when normalising
+by the background current.
+
+\subsection{The Meaning of Small-Signal}
+In the case of the photoreceptor circuit, the small changes in signal strength around a bias/operating point are a 
+result of local changes in constrast around a common background irradiance.
+
+\subsection{Forward Amplifier Gain}
+The gain of the forward amplifier is the output resistance multiplied by the gate transconductance, because the input
+appears on the gate. We have
+\begin{equation*}
+    A_{amp} = g_m R_{out}
+\end{equation*}
+The output resistance is the parallel combination of the N and P transistors drain resistance
+\begin{equation*}
+    g_{nd} || g_{pd} = g_{nd}+g_{np} = I\left(\frac{V_{EP}+V_{EN}}{V_{EP}V_{EN}}\right)
+\end{equation*}
+Which leads to the forward amplifier gain
+\begin{equation*}
+    A_{amp} = \frac{\kappa I}{U_T} \frac{V_{EN}V_{EP}}{I(V_{EN} + V_{EP})} = \frac{\kappa}{U_T} \frac{V_{EN}V_{EP}}{V_{EN} + V_{EP}}
+\end{equation*}
+For Early voltages of 20 V and a \(\kappa\) of 0.7 the gain is
+\begin{equation*}
+    A_{amp} = \frac{0.7}{26 \mathrm{mV}} \frac{20^2\mathrm{V}^2}{40 \mathrm{V}} = 269.23
+\end{equation*}
+
+\subsection{Input Node Response to Small-Signal Changes}
+Again considering the closed loop configurations with and without the capacitive divider gain, the DC change in \(v_{in}\) is
+\begin{equation*}
+    \frac{v_{in}}{i} = -\frac{U_T}{I}\frac{1}{\kappa A +1}
+\end{equation*}
+And the AC gain
+\begin{equation*}
+    \frac{v_{in}}{i} = -\frac{U_T}{I}\frac{1}{\kappa A_C A +1}
+\end{equation*}
+
+\section{Time Response of the Source-Follower Receptor Circuit}
+\subsection{Input Capacitance Time Constant}
+The SF receptor circuit with an input capacitance can be transformed to an equivalent circuit where the diode is replaced by 
+an equivalent resistance and the bias transistor by a current source. In that case, the s-domain equation is
+\begin{equation*}
+    V_s = \frac{I_dU_T}{I_p} \frac{1}{s\tau +1}
+\end{equation*}
+Where \(I_p\) is the bias transistor current and \(I_d\) is the diode current. Here,
+\begin{equation*}
+    \tau = \frac{CU_T}{I}
+\end{equation*}
+
+\subsection{Doubling the Capacitor Area}
+Because
+\begin{equation*}
+    C = A\frac{\varepsilon}{d}
+\end{equation*}
+A doubling in area will double the time constant and thus slow down the circuit by a factor of two.
+
+\section{Time Response of Adaptive Receptor}
+\subsection{Total Loop Gain}
+The total loop gain without an input capacitance was computed earlier to be
+\begin{equation*}
+    A_{loop} = \frac{v_{out}}{i} =\frac{U_T}{I} \frac{A_{amp}}{\kappa A_C A_{amp}+1} \\
+\end{equation*}
+
+\subsection{Total Loop Gain with Input Capacitance}
+Adding a first-order lowpass filter to the forward path in the block diagram in Fig.~4 gives the following loop gain
+\begin{equation*}
+    A_{loop} = \frac{v_{out}}{i} =\frac{U_T}{I} \frac{A_{amp}}{\kappa A_C A_{amp}+\tau s + 1} \\
+\end{equation*}
+Where \(\tau\) is the time-constant computed in the previous section.
+The denominator can be brought the the canonical low-pass filter form \(\tau s + 1\) as follows
+\begin{align*}
+    \kappa A_C A_{amp} + \tau s + 1 = 1 + \frac{\tau}{\kappa A_C A_{amp}}s + \frac{1}{\kappa A_C A_{amp}} \simeq 1 + \frac{\tau}{\kappa A_C A_{amp}}s
+\end{align*}
+So the new time constant is
+\begin{equation*}
+    \tau_{new} = \frac{\tau_{old}}{\kappa A_C A_{amp}}
+\end{equation*}
+
+\subsection{Adaptive Receptor Speedup}
+The speedup of the adaptive receptor comes from the reduction in the time constant governing the input voltage. The speedup is
+\begin{equation*}
+    \mathrm{speedup} = \frac{\tau_{old}}{\tau_{new}} = \kappa A_C A_{amp}
+\end{equation*}
+Easily a factor of 1000 or more.
+
+
+\end{document}
