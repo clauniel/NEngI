@@ -1,0 +1,86 @@
+\input{pre}
+
+\tikzset{rrail/.style={rground,yscale=-1}}
+\newcommand{\reffig}[1]{Fig.~\ref{#1}}
+
+\begin{document}
+\input{frontpage}
+\newpage
+
+\section{Adaptive Photoreceptor Gain}
+
+In this experiment we measured the small signal characteristics of the adaptive photoreceptor and of the non-adapting photoreceptor for comparison. In order to get different DC values of light, we used two filters, the attenuation of the second one being 100 times that of the first. The results of applying a square input wave can be seen in Fig.~\ref{fig:exp1}.
+
+\begin{figure}[H]
+	 \center
+	 \includegraphics{exp1.eps}
+	 \caption{Responses of the adaptive and non-adapting photoreceptor circuits to two square small signals of light with different offsets.}
+	 \label{fig:exp1}
+\end{figure}
+We can observe that the adaptive photoreceptor is faster than the non-adapting due to the positive feedback. 
+
+When the DC value of the light signal is smaller (filter 3), the responses are slower. We can also see that, in this case, the gain of the non-adapting photoreceptor decreases but the gain of the adaptive photoreceptor remains constant as expected. \\ 
+
+
+\subsection{Extra credit: Loop gain}
+We measured the amplitude of the signal at the photodiode node and found it to be \(V_{in}=3.6\cdot10^{-3}\) while the amplitude at the output was \(V_{out}=0.44\). From this we can calculate the gain of the amplifier as \(A_{amp}=\frac{V_{out}}{V_{in}}=120\).
+The amplitude of the signal at the feedback node was \(V_{fb}=0.055\), so the capacitive divider is \(A_C=\frac{V_{fb}}{V_{out}}=0.13\). 
+Assuming $\kappa$ to be 0.8, the total loop gain is given by
+
+\begin{equation*}
+A_{loop}=A_{amp} \cdot A_c \cdot \kappa = 12
+\end{equation*}
+	\\
+\section{Photoreceptor Time Response}
+\subsection{Adaptation time-constants}
+Here we investigate how fast the photoreceptor adapts to a big change in illumination. For this, we use a 0.1 Hz and 2 V signal. The results can be seen in  Fig.~\ref{fig:exp2.1}.
+
+\begin{figure}[H]
+	\center
+	\includegraphics{exp2_1.eps}
+	\caption{Output and feedback node of the adaptive photoreceptor using a square large signal of light as input.}
+	\label{fig:exp2.1}
+\end{figure}
+
+The photoreceptor adapts more quickly to negative steps, the adaptation time being approximately 1 second. For positive steps, the adaptation time is larger than 2.5.\\ 
+
+\subsection{Effect of illumination on the response time and using the cascode to increase the bandwith}
+In this experiment, we measure how the bandwidth (1/(rise time)) scales with DC illumination and how the cascode can be used to increase the bandwidth.
+\begin{figure}[H]
+	\center
+	\includegraphics{exp2_2a.eps}
+	\caption{Response of the adaptive photoreceptor to a small step in input light for three different offset values with and without using the cascode ($V_c=2$ or 5 respectively).}
+	\label{fig:exp2.2a}
+\end{figure}
+
+\begin{figure}
+	\center
+	\includegraphics{exp2_2b.eps}
+	\caption{Response of the adaptive photoreceptor to a small step in input light for three different offset values with and without using the cascode ($V_c=2$ or 5 respectively). The values corresponding to the highest offset value (filter 2) are repeated for comparison with Fig.~\ref{fig:exp2.2a}.} 
+	\label{fig:exp2.2b}
+\end{figure}
+
+\begin{figure}[H]
+	\center
+	\includegraphics{exp2_2c.eps}
+	\caption{Time constants of the adaptive photoreceptor for different offset values with and without using the cascode as measured from Fig.~\ref{fig:exp2.2a} and Fig.~\ref{fig:exp2.2b}.}
+	\label{fig:exp2.2c}
+\end{figure}
+
+Figures \ref{fig:exp2.2a} and \ref{fig:exp2.2b} show the responses of the circuit to a small negative step in illumination using different filters to get five different DC values. The time constants measured from these experiments are displayed in Fig.~\ref{fig:exp2.2c} on logarithmic scale. 
+
+The use of the cascode makes the response of the circuit faster (although of the same order of magnitude) but it introduces overshoot for high DC illumination values. 
+
+The time constants are inversely proportional to the current through the photodiode so they should decrease exponentially with increasing illumination. This seems to be true for some ranges of illumination but there appears to be a change in behavior around the 100 attenuation point. \\
+
+\subsection{Extra credit: The tobi element}
+Lastly, we measure the I-V characteristic of the tobi element applying voltages and measuring the generated current. The results are shown in Fig.~\ref{fig:tobi}. For differences in voltage smaller than 4.3 V, the current from well to gate is larger than in the opposite direction. This explains why the adaptation is faster for negative steps, where current has to flow into the capacitor through the tobi element from well to gate.
+
+\begin{figure}[H]
+	\center
+	\includegraphics{tobi.eps}
+	\caption{I-V curve of the tobi element. To make the comparison between forward and reverse current more clear, we have plotted the absolute values of current and voltage.}
+	\label{fig:tobi}
+\end{figure}
+
+\end{document}
