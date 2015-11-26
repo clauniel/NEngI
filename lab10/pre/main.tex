@@ -1,0 +1,62 @@
+\input{pre}
+\tikzset{rrail/.style={rground,yscale=-1}}
+\begin{document}
+\input{frontpage}
+\newpage
+\section{Log-Domain Pulse Integrator}
+\subsection{Dynamical Equations}
+Assuming that all transistors are operating in sub-threshold saturation, the following currents are flowing
+\begin{align*}
+    &I_\tau = I_0e^{\frac{\kappa(V_{dd}-V_\tau)}{U_T}} \\
+    &I_w = I_0e^{\frac{\kappa(V_s-V_w)}{U_T}} = I_\tau + I_c \\
+    &I_c = -C\frac{dV_s}{dt} \\
+    &I_{syn} = I_0e^{\frac{\kappa(V_{dd}-V_s)}{U_T}}
+\end{align*}
+By replacing
+\begin{equation*}
+    I_w = I_0e^{\frac{\kappa(V_{dd}-V_w)-\kappa(V_{dd}-V_s)}{U_T}}  = \frac{I_{w0}}{I_{syn}}
+\end{equation*}
+We have
+\begin{align*}
+    &\frac{dV_s}{dt} = \frac{I_\tau - \frac{I_0I_{w0}}{I_{syn}}}{C} \\
+    &\Downarrow \\
+    &\frac{dI_s}{dt} = \frac{-\kappa\left(I_\tau - \frac{I_0I_{w0}}{I_{syn}}\right)}{U_TC}I_{syn} \\
+    &\Updownarrow \\
+    &\frac{CU_T}{\kappa I_\tau}\frac{dI_{syn}}{dt} + I_{syn} = \frac{I_0I_{w0}}{I_\tau}
+\end{align*}
+
+\subsection{Rising and Falling Step Response}
+Transforming the above result to the Laplace domain reveals
+\begin{equation*}
+    I_{syn} = \frac{I_0I_{w0}}{I_\tau}\frac{1}{\frac{CU_T}{\kappa I_\tau}s+1}
+\end{equation*}
+The second fraction in this equation is equivalent to a canonical low-pass filter with 
+\begin{equation*}
+    \tau = \frac{CU_T}{\kappa I_\tau}
+\end{equation*}
+The solutions to up and down-going steps starting from minimum and maximum charge on the capacitor are
+then
+\begin{equation*}
+    I_{syn} = \frac{I_0I_{w0}}{I_\tau}\left(1-e^{\frac{-t}{\tau}}\right)
+\end{equation*}
+For the rising edge case, and
+\begin{equation*}
+    I_{syn} = \frac{I_0I_{w0}}{I_\tau}e^{\frac{-t}{\tau}}
+\end{equation*}
+For the falling edge case, assuming that both edges occur at t=0.
+
+\subsection{\(V_{syn}\) During a Spike Train}
+When the input is a spike train with frequency \(f\), where each spike has width \(w\), the steady state depends
+on both the frequency and width of each spike. 
+
+When a spike arrives, \(V_{syn}\) will drop because the capacitor holding the voltage is being discharged through the
+weight and input transistors. When the spike stops, the capacitor will start charging again and thus bring \(V_{syn}\) back up.
+
+In the steady state, \(V_{syn}\) will be oscillation around some DC value determined by the input frequency.
+
+\subsection{Relation of Spike Response to Step Response}
+For the step response, \(I_w\) determines the current carried by the synapse and \(I_\tau\) determines the time constant of the 
+synapse. Modifying these values will show up as a difference in the DC level of the output during an incoming spike train, as well
+as a change in the maximum allowable frequency that does not result in saturation.
+    
+\end{document}

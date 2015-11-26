@@ -1,0 +1,68 @@
+\input{pre}
+
+\tikzset{rrail/.style={rground,yscale=-1}}
+\newcommand{\reffig}[1]{Fig.~\ref{#1}}
+
+\begin{document}
+\input{frontpage}
+\newpage
+\begin{figure}
+    \center
+    \includegraphics{srcfoll.eps}
+    \caption{Output voltage as a function of relative light intensity for the source-follower receptor. Strips 1 through 4
+    are decade light intensity filters, numbered in descending opacity. The dark current line is the maximum output voltage since
+the always-present dark current fixes the voltage to this value.}
+    \label{fig:srcfoll}
+\end{figure}
+\section{Quantum Efficiency of a Photodiode}
+Using the photometer we measured the following irradiances for the red and green LEDs
+\begin{equation*}
+    E_{red} = 2.52 \frac{\mathrm{W}}{\mathrm{m}^2} \; ,\; E_{green} = 2.22 \frac{\mathrm{W}}{\mathrm{m}^2}
+\end{equation*}
+When applying a reverse bias across the diode of 5 V and shielding it from as much light as possible, the dark
+current is approximately
+\begin{equation*}
+    I_0 = 0.0049 \mathrm{nA}
+\end{equation*}
+The reverse current through the diode when shining light on the junction using the LEDs at maximum intensity is
+\begin{equation*}
+    I_{red} = 0.4523 \mathrm{nA} \; , \; I_{green} = 0.6282 \mathrm{nA}
+\end{equation*}
+We find the quantum efficiency as
+\begin{equation*}
+    \eta = \frac{hc I_{ph}}{q\lambda P_{opt}}
+\end{equation*}
+Where \(P_{opt}\) is the incoming optical power to the junction and \(I_{ph} = I-I_0\). \(P_{opt}\) can be calculated using the area of the junction
+which is given to be 98 square microns and the irradiance of the light source. 
+
+The quantum efficiencies for both light sources are
+\begin{equation*}
+    \eta_{red} = 3.53 \; , \; \eta_{green} = 6.29
+\end{equation*}
+These numbers are obviously not correct since the quantum efficiency is always lower than 1. Also, the quantum efficiency for red light
+is lower than that of green light, which does not immediately make sense given that the absorbtion spectrum of silicon peaks at a wavelength of 800nm.
+Therefore the red light should have the highest quantum efficiency as photons with this wavelength have enough energy to generate electron-hole
+pairs, but not so much energy that they are immediately absorbed in the surfce of the n-region, and not so little energy that they cannot 
+generate electron-hole pairs or pass through the material entirely.
+
+However, the junction depth can modulate the efficiency for red and green light. A junction nearer to the surface of the substrate will be more
+efficient for green light compared to red light, as most of the higher energy green light will be absorbed near the surface (in the junction) and
+most of the red light will penetrate deeper into the substrate and therefore not contribute appreciably to the photocurrent.
+
+\section{Source-Follower Receptor}
+We biased the source follower bias transistor at 1 V and observed that the output went close to the ground rail when shining light on the chip,
+while it hovered just below 0.7 V when we blocked as much light as possible from reaching the chip.
+
+Fig.~\ref{fig:srcfoll} shows the response of the source-follower receptor for different light intensities, relative to the maximum intensity
+we were able to produce using the green LED with no filter in place.
+
+Blocking as much light as possible so only the dark current remains results in the maximum possible output voltage. The output voltage can never
+go higher than this value, as long as the bias does not change, because of the dark current. Therefore the response of the circuit will saturate
+and this voltage for low intensities and cease to be an actual log response.
+
+For the higher intensities, the bias transistor goes above threshold and therefore the output voltage drops very quickly with increasing light intensity
+because the I-V relationship is no longer exponential, but quadratic. This is also shown on the figure as shining LED light on the chip without any filter
+very clearly causes the output voltage to drop to almost 0.
+
+
+\end{document}
