@@ -27,7 +27,7 @@ ylim([1.1 1.9])
 title('Adaptation of the Photoreceptor', 'Interpreter', 'LaTeX')
 xlabel('Time (s)', 'Interpreter', 'LaTeX')
 ylabel('Voltage (V)', 'Interpreter', 'LaTeX')
-legend({'Output Voltage','Feedback node voltage'}, 'Interpreter', 'Latex')
+legend({'output voltage','feedback node voltage'}, 'Interpreter', 'Latex')
 saveas(gcf,'C:/Users/Eloy/SkyDrive/NSC/Neuromorphic engineering I/Lab/lab9/report/exp2_1','epsc')
 
 %%
@@ -41,11 +41,11 @@ trc=[0.000026, 0.000048, 0.000088, 0.00067, 0.0064]
 
 x=[1 0.1 0.01 0.001 0.0001]
 
-loglog(x, tr,'-*')
+loglog(x, tr,'o')
 hold all
-loglog(x, trc,'-or')
+loglog(x, trc,'*')
 legend({'no cascode', 'with cascode'}, 'Interpreter', 'Latex')
-title('Fall time of the photoreceptor', 'Interpreter', 'Latex')
+title('Time constant of the photoreceptor', 'Interpreter', 'Latex')
 xlabel('Filter attenuation', 'Interpreter', 'Latex')
 ylabel('Fall time (s)', 'Interpreter', 'Latex')
 saveas(gcf,'C:/Users/Eloy/SkyDrive/NSC/Neuromorphic engineering I/Lab/lab9/report/exp2_2c','epsc')
@@ -95,7 +95,22 @@ xlabel('Time (s)', 'Interpreter', 'Latex')
 ylabel('Voltage AC (V)', 'Interpreter', 'Latex')
 saveas(gcf,'C:/Users/Eloy/SkyDrive/NSC/Neuromorphic engineering I/Lab/lab9/report/exp2_2b','epsc')
 
+%% tobi element
 
+figure(4)
+set(gcf, 'paperunits','centimeters','PaperPosition',[0 0 16 8]);
+set(gca,'DefaultLineLineWidth', 0.5)
+set(gca,'Fontsize',10)
+plot(5-vsweep, -iVg, '.-')
+hold all
+plot(5-vsweep, -iVw, '.-')
+hold off
+
+legend({'$V_{w} > V_{g}$', '$V_{g} > V_{w}$'}, 'Interpreter', 'Latex', 'Location', 'Northwest')
+title(char('I-V Characteristic of the Tobi Element'), 'Interpreter', 'Latex')
+xlabel('$|V_w - V_g|$ (V)', 'Interpreter', 'Latex')
+ylabel('$|$Current$|$ (A)', 'Interpreter', 'Latex')
+saveas(gcf,'C:/Users/Eloy/SkyDrive/NSC/Neuromorphic engineering I/Lab/lab9/report/tobi','epsc')
 
 
 

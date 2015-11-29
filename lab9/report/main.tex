@@ -74,13 +74,20 @@ The use of the cascode makes the response of the circuit faster (although of the
 The time constants are inversely proportional to the current through the photodiode so they should decrease exponentially with increasing illumination. This seems to be true for some ranges of illumination but there appears to be a change in behavior around the 100 attenuation point. \\
 
 \subsection{Extra credit: The tobi element}
-Lastly, we measure the I-V characteristic of the tobi element applying voltages and measuring the generated current. The results are shown in Fig.~\ref{fig:tobi}. For differences in voltage smaller than 4.3 V, the current from well to gate is larger than in the opposite direction. This explains why the adaptation is faster for negative steps, where current has to flow into the capacitor through the tobi element from well to gate.
+Lastly, we measure the I-V characteristic of the tobi element applying voltages and measuring the generated current. The results are shown in Fig.~\ref{fig:tobi} and Fig.~\ref{fig:tobilog}. For differences in voltage smaller than 4.3 V, the current from well to gate is larger than in the opposite direction. This explains why the adaptation is faster for negative steps, where current has to flow into the capacitor through the tobi element from well to gate.
 
 \begin{figure}[H]
 	\center
 	\includegraphics{tobi.eps}
 	\caption{I-V curve of the tobi element. To make the comparison between forward and reverse current more clear, we have plotted the absolute values of current and voltage.}
 	\label{fig:tobi}
+\end{figure}
+
+\begin{figure}
+	\center
+	\includegraphics{tobilog.eps}
+	\caption{I-V curve of the tobi element in logarithmic scale.}
+	\label{fig:tobilog}
 \end{figure}
 
 \end{document}
