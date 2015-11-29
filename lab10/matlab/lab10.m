@@ -66,4 +66,11 @@ saveas(gcf,'./figs/ex1-4','epsc')
 
 %% experiment 2
 figure(5)
-plot(freqs,means,'x')
+set(gcf,'units', 'centimeters', 'position', [0, 0, 8, 4], 'paperunits','centimeters','PaperPosition',[0 0 16 8]);
+set(gca,'DefaultLineLineWidth', 0.5)
+set(gca,'Fontsize',6)
+plot(freqs,means,'xk')
+title('Frequency-mean current relationship for the DPI synapse', 'Interpreter', 'LaTeX')
+ylabel('$\mu(V)$ / V' , 'Interpreter', 'LaTeX');
+xlabel('F / Hz', 'Interpreter', 'LaTeX');
+saveas(gcf,'./figs/ex2-1','epsc')
