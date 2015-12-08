@@ -1,0 +1,54 @@
+\input{pre}
+
+\tikzset{rrail/.style={rground,yscale=-1}}
+\newcommand{\reffig}[1]{Fig.~\ref{#1}}
+
+\begin{document}
+\input{frontpage}
+\newpage
+\section{DPI Synapse Step Response}
+\begin{figure}[!htb]
+    \center
+    \includegraphics{ex1-1.eps}
+    \caption{Rising edge step response of the DPI synapse for \(V_{synthr}=4.7\) V, \(V_{weight} = 0.503\) V and with a current sense reference voltage of \(V_{ref} = 2.44\) V.}
+    \label{fig:ex1-1}
+\end{figure}
+Fig.~\ref{fig:ex1-1} shows the rising edge step reponse of the DPI synapse. As expected, the time constant is smaller when the gate-to-source voltage of the \(\tau\) transistor
+increases. The mean levels of the signals are not the same because we drove the circuit with a 5 Hz 50\% duty cycle square wave, instead of single bursts. This does not affect the
+time constants however. The large spikes that appear on the waveform are most likely artefacts from the signal generator as they occur at the same time as the step takes place.
+\begin{figure}[!htb]
+    \center
+    \includegraphics{ex1-2.eps}
+    \caption{Falling edge step response of the DPI synapse for \(V_{synthr}=4.7\) V, \(V_{weight} = 0.503\) V and with a current sense reference voltage of \(V_{ref} = 2.44\) V.}
+    \label{fig:ex1-2}
+\end{figure}
+
+Fig.~\ref{fig:ex1-2} shows the falling edge step response of the DPI synapse.
+\begin{figure}[!htb]
+    \center
+    \includegraphics{ex1-3.eps}
+    \caption{Rising edge step response of the DPI synapse for \(V_{synth}=4.7\) V, \(V_{weight} = 0.503\) V, \(V_\tau = V_{dd}-0.75\) V vs. \(V_{synth} = 4.0\) V, \(V_{weight} = 0.289\) V and \(V_\tau = V_{dd} - 0.75\) V. }
+    \label{fig:ex1-3}
+\end{figure}
+Figs.~\ref{fig:ex1-3} and~\ref{fig:ex1-4} show the comparison between a synthr voltage of 4.7 or 4.0. We were not able to match the amplitudes completely by adjusting the weight transistor voltage as it was much too sensitive.
+The reponse for the rising edge is very similar and shows approximately the same time constant. However, the reponses for the falling edge are very dissimilar.
+The configuration with the higher synthr value responds much more quickly, and this is due to the differential pair where \(V_{syn}\) appears on the other side of the pair to \(V_{synthr}\). 
+When \(V_{synthr}\) is lowered, it takes longer for the capacitor to discharge, but not much longer to charge.
+\begin{figure}[!htb]
+    \center
+    \includegraphics{ex1-4.eps}
+    \caption{Falling edge step response of the DPI synapse for \(V_{synth}=4.7\) V, \(V_{weight} = 0.503\) V, \(V_\tau = V_{dd}-0.75\) V vs. \(V_{synth} = 4.0\) V, \(V_{weight} = 0.289\) V and \(V_\tau = V_{dd} - 0.75\) V. }
+    \label{fig:ex1-4}
+\end{figure}
+
+\section{Frequency Response}
+\begin{figure}
+    \center
+    \includegraphics{ex2-1.eps}
+    \caption{Frequency-mean current relationship for the DPI synapse. The y-axis units are in volts because the current is being measured using a current sense amplifier, using a 1.8 M\(\Omega\) resistor and biased at
+    2.44 V. The current is increasing with frequency because the mean voltage of the current sensor moves away from the reference point.}
+    \label{fig:ex2-1}
+\end{figure}
+Fig.~\ref{fig:ex2-1} shows the frequency to mean current relationship for the DPI synapse. As the frequency increases, the main current also increases because the mean voltage sensed by the 
+current sense amplifier moves away from its bias point. Qualitatively this makes sense and the circuit spends less time outputting 0 current when a higher frequency is applied.
+\end{document}

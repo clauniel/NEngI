@@ -1,0 +1,51 @@
+\input{pre}
+\tikzset{rrail/.style={rground,yscale=-1}}
+\begin{document}
+\input{frontpage}
+\newpage
+\section{Passive Properties and Conductances}
+\subsection{Passive Properties}
+In general, passive properties are properties which are always present and unchanging. For the neuron, the leakage resistance
+and membrane capacitance are considered passive properties. The sodium, potassium and chloride conductances can also be considered
+passive for modelling purposes even though they are voltage dependant.
+
+\subsection{Modelling Passive Properties}
+With discrete circuit elements, neurons can be modeled using resistors and capacitors. In VLSI, the resistors are replaced with 
+transistors.
+
+\subsection{Relevant Conductances in Spike-Generation}
+The relevant conductances involved in generating an action potential are the sodium and potassium conductances. First the 
+sodium channels are activated, increasing the sodium conductance, then potassium channels open which increases the potassium conductance while
+the sodium channels are closed again.
+
+Another important conductance is the chloride conductance which functions as an inhibitory conductance.
+
+\section{Power Dissipation}
+\subsection{Concerns for the Axon-Hillock Circuit}
+The membrane potential in the axon-hillock circuit spends a lot of time hovering around the threshold voltage. This dissipates a lot of
+power in the first inverter of the inverter pair, since both the p-fet and n-fet are halfway on most of the time. Therefore, a large current
+will flow through the first inverter without serving a particular function.
+
+The second inverter does not dissipate nearly as much power as the first inverter, since the positive feedback guarantees that as soon as the input
+to the second inverter approaches the critical point, it will flip over. Therefore it spends less time in a state where both its transistors
+are conducting large currents.
+
+\section{FI-curves and Refractory Period}
+\subsection{The Meaning of \emph{Refractory} period}
+The refractory period consists of two sub-periods; the \emph{absolute} and \emph{relative} refractory periods. The absolute refractory period
+is the period of timer after a spike in which it is impossible to make a neuron fire again. The relative period is the period after a 
+spike in which the neuron can be made to fire, provided it receives an input larger than it would need if it was at its resting potential.
+
+\subsection{The Cause of Refractory Periods}
+Immediately after a neuron spikes, the sodium channels are completely closed and some time must pass before they can be opened again. Therefore
+any attempt to depolarize the neuron will fail because the sodium current responsible for depolarization simply cannot flow.
+
+After the absolute period ends, a large influx of potassium will have hyperpolarized the cell to a membrane potential lower than its resting potential.
+Therefore, even though the sodium channels can now open, it will take more charge to bring the membrane potential to threshold than it would from the 
+resting potential.
+
+\subsection{What is an FI-curve}
+The FI-curve is the relationship between the input current to a cell, and that cell's firing frequency. For any cell, there will be a minimum current
+required for firing, which must be larger than the leakage current. Also, there is a maximum current, above which any current will not increase the 
+firing rate because the absolute refractory period is limiting the neuron.
+\end{document}
