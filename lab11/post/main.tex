@@ -6,33 +6,17 @@
 \begin{document}
 \input{frontpage}
 \newpage
-\section{Post-Lab}
-\subsection{BDJ Cross Section}
-See appended figure.
+\section{Post Lab}
+The FI curve can not be brought to saturation by adjusting the other parameters in the circuit. Unless \(V_\tau\) or the threshold voltage is
+adjusted such that the input voltage becomes the limiting factor.
 
-\subsection{Electron-Hole Pair Generation in the BDJ}
-Electron-hole pairs generated in the substrate will either recombine,
-or the electron will diffuse into the n-well and contribute to the bottom current.
+For the Axon-Hillock circuit, the frequency limiting factor is either going to be the input current, the switching speed of the second inverter, or
+the discharge rate through the membrane discharge transistors. If the input current is not a limitation, the circuit will either saturate at 
+a spike frequency if the switching speed of the inverter is limiting. Otherwise, if the discharge current cannot keep up with the input current,
+the output will settle to \(V_{dd}\) and no more spikes will be produces. Of course the circuit will then be destroyed if charge is continously pumped
+onto the membrane capacitor without sufficient discharge.
 
-Pairs generated in the n-well can also recombine or diffuse into a depletion region.
-Depending on which depletion region catches the hole, the pair generation will contribute to
-either the bottom or top current.
-
-The situation for the top p-region is the same as for the substrate, except any current will 
-contribute to the top current.
-
-\subsection{Spectral Response of the Top and Bottom Junction}
-Intrinsic silicon has a peak quantum efficiency at about 800nm. However, these near infrared waves can
-penetrate deep into the material. Therefore one would expect that the bottom junction of the BDJ
-responds very well to long wavelengths, while the top junction absorbs the higher energy content of
-the incoming light.
-
-The response is sketched in the appended figures.
-
-\subsection{Uses for Manufacturers and Drawbacks}
-Since the response of the BDJ is widened, due to the increased absorbtion of higher wavelength light,
-the BDJ can be uses as a wide-range image sensor in the visual spectrum.
-
-Drawbacks include increased complexity of manufacturing, due to the extra well, and an increase in the dark
-current due to having two junctions in a single diode.
+Since \(V_{in}\) is the gate voltage for a transistor operating in sub-threshold, the input current to the circuit will be an exponential
+function of \(V_{in}\). Therefore a semilog-plot with \(V_{in}\) on a log scale and the frequency on a linear scale will be equivalent to
+a linear FI plot.
 \end{document}

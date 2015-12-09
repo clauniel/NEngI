@@ -1,0 +1,74 @@
+\input{pre}
+\tikzset{rrail/.style={rground,yscale=-1}}
+\begin{document}
+\input{frontpage}
+\newpage
+\section{Floating Nodes in MOS Technology}
+The following calculation shows the effectiveness of \(\mathrm{SiO}_2\) as an insulator. The leakage current is computed as
+\begin{equation*}
+    I_{leak} = I_0e^{\frac{-3.2 \mathrm{eV}}{kT}}
+\end{equation*}
+Where \(I_0 = qNAv\). With the values given in the exercise manual, the leakage current is approximately
+\begin{equation*}
+    I_{leak} = 1.13 \cdot 10^{-51} \mathrm{A}
+\end{equation*}
+Which is an electron flow of 1 electron per \(10^{32}\) seconds.
+
+\section{Operational Amplifier}
+\subsection{The output voltage follows the input voltage}
+When the input to the opamp changes, the difference between the two signals will be amplified and applied to the output.
+Because the output is connected to the negative input terminal, the difference between the positive and negative input terminal
+will immediately be brought to zero.
+
+Analytically:
+\begin{equation*}
+    V_{out} = A(V_{in}^+ - V_{in}^-)
+\end{equation*}
+But because of the negative feedback connection
+\begin{align*}
+    V_{out} &= A(V_{in}^+ - V_{out}) \\
+            &\Updownarrow \\
+    V_{out} &= V_{in}^+ \frac{A}{A+1}
+\end{align*}
+For large values of \(A\)
+\begin{equation*}
+    V_{out} \simeq V_{in}
+\end{equation*}
+
+\subsection{Operating Curves}
+Figs here.
+
+\section{Lab Circuit}
+See Fig for the updated circuit.
+\subsection{Hot electron injection}
+Hot electron occurs (HEI) when high-energy holes move into the pFET transistor's drain and knock free an electron. With a high
+field strength between the drain and channel of the transistor, the electrons will accelerate rapidly and some may cross through the
+oxide and onto the floating gate. Others may become trapped in the oxide and damage it.
+
+\subsection{Electrons added at constant rate using HEI}
+See Fig
+
+\subsection{Tunneling injection}
+Tunneling can work in two ways, either the oxide is thin enough that the electrons can tunnel directly through. This is called direct tunneling.
+The other option is Fowler-Nordheim tunneling, which needs a well process. Here the well is put at a very high potential compared to the floating
+gate such that the energy level of the oxide conduction band is distorted across space. This lowers the effective distance that electrons have to
+tunnel through in order to make it through the oxide.
+
+\subsection{Removing electrons using tunneling}
+See Fig.
+
+\subsection{Obtaining current from voltage vs. time graphs}
+We know that the voltage changes because charge is removed from the floating gate node which is effectively one side of a capacitor plate. 
+Therefore the current is simply the derivative of the voltage with respect to time, multiplied by the size of the capacitor.
+\begin{equation*}
+    I = C\frac{dV}{dt}
+\end{equation*}
+
+\subsection{Assumption of constant current}
+It is reasonable to assume a constant current because the voltages used to force the HEI and tunneling effects are very large compared to the
+floating gate node voltage. Otherwise the current would not be constant, but instead resemble the charging of a capacitor to a specific voltage.
+
+\section{Application of a High voltage to a CMOS Gate}
+See Fig.
+
+\end{document}
