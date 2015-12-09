@@ -6,13 +6,13 @@
 \input{frontpage}
 \newpage
 
-In this lab we study the behavior of a low-power integrate and fire neuron using the classchip 2005rev2008. First, we observe the effect of changing different parameters and try to obtain a biologically plausible response. Then we measure some frequency vs. input current characteristics. \\
+In this lab we study the behavior of a low-power integrate and fire neuron using the classchip 2005rev2008. First, we observe the effect of changing different parameters and we try to obtain a biologically plausible response. Then, we measure some frequency vs. input current characteristics. \\
 
 \section{Single Spike Plots}
 
 We tuned the parameters to obtain a spiking frequency of around 100 Hz and a refractory period of a few milliseconds. 
 
-The node that contains the "membrane potential" is connected to the gate of a transistor, thus determining the current that flows through it. This current is then transformed back into a voltage using an operational amplifier with a feedback resistor. The voltage produced is therefore related to the "membrane potential" and can be considered an indirect measurement of it. The results can be seen in Fig~\ref{fig:exp1a}. 
+We are interested in the voltage that is equivalent to the membrane potential in biological neurons. However, this voltage cannot be measured directly as the circuit is very sensitive to current flowing into or out of that node. Therefore, we measure it indirectly using a transistor whose gate is connected to the node. Depending on the gate voltage, the transistor will produce a current. The current is then transformed back into a voltage using an operational amplifier with a feedback resistor. The voltage produced will thus be related to the "membrane potential" although not linearly. The results can be seen in Fig~\ref{fig:exp1a}. 
 \begin{figure}[!h]
     \center
     \includegraphics{exp1a.eps}
