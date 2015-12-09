@@ -1,0 +1,37 @@
+\input{pre}
+
+\newcommand{\reffig}[1]{Fig.~\ref{#1}}
+
+\begin{document}
+\input{frontpage}
+\newpage
+
+In this lab we study the behavior of a low-power integrate and fire neuron using the classchip 2005rev2008. First, we observe the effect of changing different parameters and try to obtain a biologically plausible response. Then we measure some frequency vs. input current characteristics. \\
+
+\section{Single Spike Plots}
+
+We tuned the parameters to obtain a spiking frequency of around 100 Hz and a refractory period of a few milliseconds. 
+
+The node that contains the "membrane potential" is connected to the gate of a transistor, thus determining the current that flows through it. This current is then transformed back into a voltage using an operational amplifier with a feedback resistor. The voltage produced is therefore related to the "membrane potential" and can be considered an indirect measurement of it. The results can be seen in Fig~\ref{fig:exp1a}. 
+\begin{figure}[!h]
+    \center
+    \includegraphics{exp1a.eps}
+    \caption{Indirect measurement of the "membrane potential" of a spiking neuron circuit for different values of the voltage that controls the refractory period, $V_{ref}$. The rest of the parameters remain constant at $V_{in}=4.150 V$, $V_{thr}=0.706 V$ and $V_{tau}=0.282 V$. }
+    \label{fig:exp1a}
+\end{figure}
+
+\section{F-I Curves}
+Now we measure the spike frequency of the circuit as a function of the input current. Here again, we rely on indirect measurements as we know the voltage applied to the gate of the transistor that produces the input current instead of the current itself. The results are shown in Fig~\ref{fig:exp1b} for different values of $V_{ref}$.\\
+
+\begin{figure}[!h]
+	\center
+	\includegraphics{exp1b.eps}
+	\caption{Spike frequency of the circuit in logarithmic scale as a function of the input voltage. This is qualitatively equivalent to plotting the frequency in natural units against the input current as the input current depends exponentialy on the voltage.}
+	\label{fig:exp1b}
+\end{figure}
+
+
+\section{Spike Frequency Adaptation}
+
+
+\end{document}
