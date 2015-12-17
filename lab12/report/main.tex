@@ -6,49 +6,99 @@
 \begin{document}
 \input{frontpage}
 \newpage
-\section{DPI Synapse Step Response}
-\begin{figure}[!htb]
-    \center
-    \includegraphics{ex1-1.eps}
-    \caption{Rising edge step response of the DPI synapse for \(V_{synthr}=4.7\) V, \(V_{weight} = 0.503\) V and with a current sense reference voltage of \(V_{ref} = 2.44\) V.}
-    \label{fig:ex1-1}
-\end{figure}
-Fig.~\ref{fig:ex1-1} shows the rising edge step reponse of the DPI synapse. As expected, the time constant is smaller when the gate-to-source voltage of the \(\tau\) transistor
-increases. The mean levels of the signals are not the same because we drove the circuit with a 5 Hz 50\% duty cycle square wave, instead of single bursts. This does not affect the
-time constants however. The large spikes that appear on the waveform are most likely artefacts from the signal generator as they occur at the same time as the step takes place.
-\begin{figure}[!htb]
-    \center
-    \includegraphics{ex1-2.eps}
-    \caption{Falling edge step response of the DPI synapse for \(V_{synthr}=4.7\) V, \(V_{weight} = 0.503\) V and with a current sense reference voltage of \(V_{ref} = 2.44\) V.}
-    \label{fig:ex1-2}
+
+In this lab we test a non-volatile analog memory cell. The cell stores charge in an isolated 'floating' gate using quantum tunneling and hot electron injection. 
+
+The chips that were  available to us did not seem to work properly so we are using the data obtained by the group of M. Milde et al. for this report. \\
+
+\section{Measuring Injection and Tunneling Current}
+
+Here we show examples of injection and tunneling and demonstrate how to calculate the currents that flow into the floating gate. 
+
+In Fig.~\ref{fig:exp1a} we can see how the output voltage of the circuit increases linearly as we inject electrons into the floating gate. The injection current can be calculated as follows:
+
+\begin{equation*}
+	V_{out}\approx V_{inp}+V_c
+\end{equation*}
+
+\begin{equation*}
+	\frac{dV_{out}}{dt}\approx \frac{dV_c}{dt} = \frac{I_{inj}}{C}
+\end{equation*}
+So that
+\begin{equation*}
+	I_{inj} = C\frac{dV_{out}}{dt}
+\end{equation*}
+In the case of Fig.~\ref{fig:exp1a}, the injection current will therefore be 
+\begin{equation*}
+	I_{inj}=2\cdot10^{-12}\cdot0.0714 = 1.43\cdot10^{-13} A\\
+\end{equation*}
+
+\begin{figure}[!h]
+	\center
+	\includegraphics{exp1a.eps}
+	\caption{Output voltage of the circuit as we inject electrons into the floating gate with $V_{inj}=5 V$. The line corresponds to a linear fit.}
+	\label{fig:exp1a}
 \end{figure}
 
-Fig.~\ref{fig:ex1-2} shows the falling edge step response of the DPI synapse.
-\begin{figure}[!htb]
-    \center
-    \includegraphics{ex1-3.eps}
-    \caption{Rising edge step response of the DPI synapse for \(V_{synth}=4.7\) V, \(V_{weight} = 0.503\) V, \(V_\tau = V_{dd}-0.75\) V vs. \(V_{synth} = 4.0\) V, \(V_{weight} = 0.289\) V and \(V_\tau = V_{dd} - 0.75\) V. }
-    \label{fig:ex1-3}
-\end{figure}
-Figs.~\ref{fig:ex1-3} and~\ref{fig:ex1-4} show the comparison between a synthr voltage of 4.7 or 4.0. We were not able to match the amplitudes completely by adjusting the weight transistor voltage as it was much too sensitive.
-The reponse for the rising edge is very similar and shows approximately the same time constant. However, the reponses for the falling edge are very dissimilar.
-The configuration with the higher synthr value responds much more quickly, and this is due to the differential pair where \(V_{syn}\) appears on the other side of the pair to \(V_{synthr}\). 
-When \(V_{synthr}\) is lowered, it takes longer for the capacitor to discharge, but not much longer to charge.
-\begin{figure}[!htb]
-    \center
-    \includegraphics{ex1-4.eps}
-    \caption{Falling edge step response of the DPI synapse for \(V_{synth}=4.7\) V, \(V_{weight} = 0.503\) V, \(V_\tau = V_{dd}-0.75\) V vs. \(V_{synth} = 4.0\) V, \(V_{weight} = 0.289\) V and \(V_\tau = V_{dd} - 0.75\) V. }
-    \label{fig:ex1-4}
+Fig.~\ref{fig:exp1b} shows the output of the circuit as we perform tunneling. Similarly, the tunneling current can be calculated as
+
+\begin{equation*}
+	I_{tun} = -C\frac{dV_{out}}{dt}
+\end{equation*}
+
+So we obtain 
+\begin{equation*}
+	I_{inj}=-2\cdot10^{-12}\cdot(-0.1682) = 3.36\cdot10^{-13} A\\
+\end{equation*}
+
+\begin{figure}[!h]
+	\center
+	\includegraphics{exp1b.eps}
+	\caption{Output voltage of the circuit as we tunnel electrons out of the floating gate and a linear fit.}
+	\label{fig:exp1b}
 \end{figure}
 
-\section{Frequency Response}
-\begin{figure}
-    \center
-    \includegraphics{ex2-1.eps}
-    \caption{Frequency-mean current relationship for the DPI synapse. The y-axis units are in volts because the current is being measured using a current sense amplifier, using a 1.8 M\(\Omega\) resistor and biased at
-    2.44 V. The current is increasing with frequency because the mean voltage of the current sensor moves away from the reference point.}
-    \label{fig:ex2-1}
+\section{pFET Injection}
+
+In this experiment we measure the output voltage of the circuit for five different values of $V_{inj}$ between 10 V and 10.5 V and infer the injection currents as explained above. 
+
+The efficiency of the injection (injection current divided by the current through the injection transistor) is plotted in Fig.~\ref{fig:exp2}.
+
+\begin{figure}[!h]
+	\center
+	\includegraphics{exp2.eps}
+	\caption{Injection efficiency ($I_{inj}/I_{transistor}$) as a function of the source current, $I_{transistor}$. The line represents the linear fit: $Efficiency = 2.6886\cdot10^{-5} I_{transistor} -2\cdot10^{-9}$.}
+	\label{fig:exp2}
 \end{figure}
-Fig.~\ref{fig:ex2-1} shows the frequency to mean current relationship for the DPI synapse. As the frequency increases, the main current also increases because the mean voltage sensed by the 
-current sense amplifier moves away from its bias point. Qualitatively this makes sense and the circuit spends less time outputting 0 current when a higher frequency is applied.
+
+The injection current can be characterized by 
+\begin{equation*}
+	I_{inj} = I_{transistor}~e^{\frac{V_{dc}}{V_{i}}}
+\end{equation*}
+where $V_i$ is a constant and $V_{dc}$ is the drain to channel voltage in the injection transistor. In this term, the drain voltage is constant (0 V) and the channel voltage is approximately constant. This is so because the channel voltage is related to the floating gate voltage, and this is kept close to $V_{inp}$ by the transconductance amplifier and the negative feedback. Therefore, it makes sense that the injection current is approximately proportional to the current through the transistor as we can see in Fig.~\ref{fig:exp2}.
+\\
+\section{Gate Oxide Tunneling}
+
+Lastly, we compute the tunneling currents for five different values of $V_{tun}$ between 27 and 32 V. Figs.~\ref{fig:exp3a} and \ref{fig:exp3b} show the results. 
+\begin{figure}[!h]
+	\center
+	\includegraphics{exp3a.eps}
+	\caption{Tunneling current as a function of the oxide voltage, $V_{ox}$ (i.e. $V_{tun}-V_{fg}$). $V_{fg}$ is assumed to be equal to $V_{inp}$. The curve represents a fit with a model of the form $I_{tun}=I_0e^{-\frac{V_0}{V_{ox}}}$.}
+	\label{fig:exp3a}
+\end{figure}
+
+
+\begin{figure}[!h]
+	\center
+	\includegraphics{exp3b.eps}
+	\caption{Tunneling current in logarithmic scale, $log(I_{tun})$, as a function of $-1/V_{ox}$ and a linear fit (solid line). The dashed line corresponds to the exponential fit of Fig.~\ref{fig:exp3a}.}
+	\label{fig:exp3b}
+\end{figure}
+
+The data has been fitted with a model of the form $I_{tun}=I_0e^{-\frac{V_0}{V_{ox}}}$. In this model, $I_0$ indicates value at which the tunneling current saturates and $V_{0}$ is a constant that depends on the thickness of the oxide. The thicker the oxide, the higher the oxide voltage that needs to be applied in order to get a certain current. 
+
+In Fig.~\ref{fig:exp3a} the fit is done using the model directly and the original data. We obtain $I_0=0.22235$ A and $V_{0}=752.83$ V. In Fig.~\ref{fig:exp3b}, a line is fitted to the logarithm of the current as a function of $-1/V_{ox}$. With this we obtain $I_0=85.129$ A and $V_{0}=908.54$ V.
+
+The model fits the data reasonably well. However, the points measured lie in the initial part of the equation that resembles a positive exponential, so we do not get to see the change in curvature and saturation of the current that the model predicts for higher voltages. 
+
 \end{document}
