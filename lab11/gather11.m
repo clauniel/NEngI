@@ -25,7 +25,7 @@ hold off
 
 title('Spiking Neuron', 'Interpreter', 'LaTeX')
 xlabel('Time (s)', 'Interpreter', 'LaTeX')
-ylabel('Output Voltage (V)', 'Interpreter', 'LaTeX')
+ylabel('$\sim$ Membrane Potential (V)', 'Interpreter', 'LaTeX')
 legend({'$V_{ref} = 0.401$','$V_{ref} = 0.330$', '$V_{ref} = 0.254$'}, 'Interpreter', 'Latex')
 
 saveas(gcf,'C:/Users/Eloy/SkyDrive/NSC/Neuromorphic engineering I/Lab/lab11/report/exp1a','epsc')
