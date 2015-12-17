@@ -23,6 +23,7 @@ text(42.2,1.2,'$ V_{out} = 0.0714 \cdot t - 2.1304$','Interpreter', 'LaTeX')
 hold off
 
 saveas(gcf,'C:/Users/Eloy/SkyDrive/NSC/Neuromorphic engineering I/Lab/lab12/report/exp1a','epsc')
+saveas(gcf,'C:/Users/Eloy/Desktop/exp1a','epsc')
 
 %%
 load exp1.2.mat
@@ -45,3 +46,4 @@ text(44.5,1,'$ V_{out} = -0.1682 \cdot t + 8.3703$','Interpreter', 'LaTeX')
 hold off
 
 saveas(gcf,'C:/Users/Eloy/SkyDrive/NSC/Neuromorphic engineering I/Lab/lab12/report/exp1b','epsc')
+saveas(gcf,'C:/Users/Eloy/Desktop/exp1b','epsc')
